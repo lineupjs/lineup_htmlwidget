@@ -4,6 +4,8 @@ dependencies:
     version: 1.0.0
     src: htmlwidgets/bower_components
     script: 
+      - es5-shim/es5-shim.min.js
+      - es6-shim/es6-shim.min.js
       - d3/d3.min.js
       - lineupjs/build/LineUpJS.js
     stylesheet: 
