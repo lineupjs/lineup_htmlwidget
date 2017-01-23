@@ -1,13 +1,17 @@
 #' LineUp module
 #'
-#' <Add Description>
+#' a htmlwidget wrapper around LineUp (http://lineup.caleydo.org)
 #'
 #' @import htmlwidgets
 #'
 #' @export
 lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
+  # escape remove .
+  colnames(data) <- gsub("[.]", "_", colnames(data))
+  
   toDescription <- function(col, colname) {
     clazz <- class(col)
+    # print(paste(colname, clazz))
     if (clazz == 'numeric') {
       list(type='number',column=colname, domain=c(min(col),max(col)))
     } else if (clazz == 'factor') { 

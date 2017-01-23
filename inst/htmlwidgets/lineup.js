@@ -5,13 +5,12 @@ HTMLWidgets.widget({
   type: 'output',
 
   factory: function(el, width, height) {
-
-    var data = LineUpJS.createLocalStorage([], []);
-    // TODO: define shared variables for this instance
     el.style.width = width;
     el.style.height = height;
     el.style.position = 'relative';
     el.style.overflow = 'auto';
+
+    var data = LineUpJS.createLocalStorage([], []);
     var lineup = LineUpJS.create(data, el, { body: { renderer: 'canvas'}});
 
     return {
