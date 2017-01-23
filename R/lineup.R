@@ -1,15 +1,15 @@
-#' <Add Title>
+#' LineUp module
 #'
 #' <Add Description>
 #'
 #' @import htmlwidgets
 #'
 #' @export
-lineup <- function(message, width = NULL, height = NULL, elementId = NULL) {
+lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message
+    data = data
   )
 
   # create widget

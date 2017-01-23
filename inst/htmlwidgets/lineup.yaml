@@ -2,9 +2,10 @@
 dependencies:
   - name: lineupjs
     version: 1.0.0
-    src: htmlwidgets/lib/lineupjs
+    src: htmlwidgets/bower_components
     script: 
-      - LineUpJS_bundle.min.js
-      - plugins/sigma.parsers.gexf.min.js
+      - d3/d3.min.js
+      - lineupjs/build/LineUpJS.js
     stylesheet: 
-      - style.min.css
+      - font-awesome/css/font-awesome.min.css
+      - lineupjs/build/style.min.css
