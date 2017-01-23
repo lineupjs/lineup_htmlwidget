@@ -13,23 +13,13 @@ HTMLWidgets.widget({
     el.style.position = 'relative';
     el.style.overflow = 'auto';
     var lineup = LineUpJS.create(data, el, { body: { renderer: 'canvas'}});
-    
-    function deriveColumns(dataFrame) {
-      return Object.keys(dataFrame).map(function(col) { 
-        return {
-          type: 'string',
-          column: col
-        };
-      });
-    }
 
     return {
 
       renderValue: function(x) {
+        var cols = LineUpJS.deriveColors(x.colnames.map(function(c) { return x.cols[c]; }));
         var rows = HTMLWidgets.dataframeToD3(x.data);
-        console.log(rows, x.data);
-        console.log(LineUpJS);
-        data = LineUpJS.createLocalStorage(rows, deriveColumns(x.data));
+        data = LineUpJS.createLocalStorage(rows, cols);
         data.deriveDefault();
         lineup.changeDataStorage(data);
         lineup.update();

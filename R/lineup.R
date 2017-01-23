@@ -6,10 +6,26 @@
 #'
 #' @export
 lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
-
+  toDescription <- function(col, colname) {
+    clazz <- class(col)
+    if (clazz == 'numeric') {
+      list(type='number',column=colname, domain=c(min(col),max(col)))
+    } else if (clazz == 'factor') { 
+      list(type='categorical',column=colname, categories=levels(col))
+    } else {
+      list(type='string', column=colname)
+    }
+  }
+  # convert columns
+  cols = mapply(toDescription, data, colnames(data), SIMPLIFY=F)
+  # insert id column
+  cols[['rowname']] = list(type='string',column='rowname')
+  
   # forward options using x
   x = list(
-    data = data
+    data = cbind(rowname=rownames(data), data),
+    colnames = c('rowname', colnames(data)),
+    cols = cols
   )
 
   # create widget
