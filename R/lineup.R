@@ -5,30 +5,35 @@
 #' @import htmlwidgets
 #'
 #' @export
-lineup <- function(data, width = NULL, height = NULL, elementId = NULL,
-    dependencies = crosstalk::crosstalkLibs()) {
-  cat('hello')
+lineup = function(data, width = NULL, height = NULL, elementId = NULL,
+                   filterGlobally = TRUE, singleSelection = FALSE, noCriteriaLimits = FALSE,
+                   animated = TRUE, sidePanel = TRUE, summaryHeader = TRUE,
+                   ranking = NULL,
+                   dependencies = crosstalk::crosstalkLibs(),
+                   ...) {
 
   if (is.SharedData(data)) {
       # Using Crosstalk
-    key <- data$key()
-    group <- data$groupName()
-    data <- data$origData()
+    key = data$key()
+    group = data$groupName()
+    data = data$origData()
   } else {
     # Not using Crosstalk
-    key <- NULL
-    group <- NULL
+    key = NULL
+    group = NULL
   }
   # escape remove .
-  colnames(data) <- gsub("[.]", "_", colnames(data))
+  colnames(data) = gsub("[.]", "_", colnames(data))
 
-  toDescription <- function(col, colname) {
-    clazz <- class(col)
+  toDescription = function(col, colname) {
+    clazz = class(col)
     # print(paste(colname, clazz))
     if (clazz == 'numeric') {
       list(type='number',column=colname, domain=c(min(col),max(col)))
     } else if (clazz == 'factor') {
       list(type='categorical',column=colname, categories=levels(col))
+    } else if (clazz == 'logical') {
+      list(type='boolean',column=colname)
     } else {
       list(type='string', column=colname)
     }
@@ -36,16 +41,22 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL,
   # convert columns
   cols = mapply(toDescription, data, colnames(data), SIMPLIFY=F)
   # insert id column
-  cols[['rowname']] = list(type='string',column='rowname')
+  cols[['rowname']] = list(type = 'string', column = 'rowname')
 
   # forward options using x
   x = list(
     data = cbind(rowname=rownames(data), data),
     colnames = c('rowname', colnames(data)),
     cols = cols,
-    crosstalk = list(key = key, group = group)
+    crosstalk = list(key = key, group = group),
+    options = list(filterGlobally = filterGlobally,
+                  singleSelection = singleSelection,
+                  noCriteriaLimits = noCriteriaLimits,
+                  animated = animated,
+                  sidePanel = sidePanel,
+                  summaryHeader = summaryHeader),
+    rankings = list(ranking = ranking, ...)
   )
-
   # create widget
   htmlwidgets::createWidget(
     name = 'lineup',
@@ -55,6 +66,16 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL,
     package = 'lineup',
     elementId = elementId,
     dependencies = crosstalk::crosstalkLibs()
+  )
+}
+
+lineupRanking = function(columns = c('_*', '*'),
+                         sortBy = c(), groupBy = c(), ...) {
+  list(
+    columns = columns,
+    sortBy = sortBy,
+    groupBy = groupBy,
+    defs = list(...)
   )
 }
 
@@ -75,13 +96,13 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL,
 #' @name lineup-shiny
 #'
 #' @export
-lineupOutput <- function(outputId, width = '100%', height = '400px') {
+lineupOutput = function(outputId, width = '100%', height = '800px') {
   htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineup')
 }
 
 #' @rdname lineup-shiny
 #' @export
-renderLineup <- function(expr, env = parent.frame(), quoted = FALSE) {
-  if (!quoted) { expr <- substitute(expr) } # force quoted
+renderLineup = function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) { expr = substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
 }

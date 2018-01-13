@@ -2,96 +2,146 @@ HTMLWidgets.widget({
   name: 'lineup',
   type: 'output',
 
-  factory: function (el, width, height) {
+  crossTalk(data) {
+    const key2index = new Map();
+    const index2key = new Map();
+
+    const selectionHandle = new crosstalk.SelectionHandle();
+    selectionHandle.on('change', function (e) {
+      if (e.sender === selectionHandle) {
+        return; // ignore self
+      }
+      if (!e.value) {
+        data.clearSelection();
+        return;
+      }
+      const indices = [];
+      e.value.forEach((key) => {
+        if (key2index.has(key)) {
+          indices.push(key2index.get(key));
+        }
+      });
+      data.setSelection(indices);
+    });
+
+    data.on('selectionChanged', (indices) => {
+      const keys = indices.map((index) => index2key.get(index));
+      if (keys.length === 0) {
+        selectionHandle.clear();
+      } else {
+        selectionHandle.set(keys);
+      }
+    });
+
+    const filterHandle = new crosstalk.FilterHandle();
+    filterHandle.on('change', function (e) {
+      if (e.sender === filterHandle) {
+        return;
+      }
+      if (!e.value) {
+        data.setFilter(null);
+      } else {
+        const included = new Set(e.value.map((d) => key2index.get(d)));
+        data.setFilter((d) => included.has(d.i));
+      }
+    });
+    data.on('orderChanged', (oldOrder, newOrder) => {
+      if (newOrder.length === data.getTotalNumberOfRows()) {
+        // all visible
+        filterHandle.clear();
+      } else {
+        const keys = newOrder.map((d) => index2key.get(d));
+        filterHandle.set(keys);
+      }
+    });
+
+    return (group, key) => {
+      selectionHandle.setGroup(group);
+      filterHandle.setGroup(group);
+      key2index.clear();
+      index2key.clear();
+
+      key.forEach((k, i) => {
+        key2index.set(k, i);
+        index2key.set(i, k);
+      });
+    };
+  },
+
+  toCols(names, descs) {
+    const cols = names.map((d) => descs[d]);
+    LineUpJS.deriveColors(cols);
+    return cols;
+  },
+
+  pushRanking(data, ranking) {
+    const r = LineUpJS.buildRanking();
+    const asArray = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+    const defs = ranking.defs;
+    asArray(ranking.columns).forEach((col) => {
+      if (defs.hasOwnProperty(col)) {
+        r.column(defs[col]);
+      } else {
+        r.column(col);
+      }
+    });
+    asArray(ranking.sortBy).forEach((s) => r.sortBy(s));
+    asArray(ranking.groupBy).forEach((s) => r.groupBy(s));
+    return r.build(data);
+  },
+
+  factory(el, width, height) {
     el.style.width = width;
     el.style.height = height;
     el.style.position = 'relative';
     el.style.overflow = 'auto';
 
 
-    let ctx = null;
-
-    const key2index = new Map();
-    const index2key = new Map();
-
-    const initCrossTalk = (data, group) => {
-      const selectionHandle = new crosstalk.SelectionHandle();
-      selectionHandle.setGroup(group);
-      selectionHandle.on('change', function (e) {
-        if (e.sender === selectionHandle) {
-          return; // ignore self
-        }
-        if (!e.value) {
-          data.clearSelection();
-          return;
-        }
-        const indices = [];
-        e.value.forEach((key) => {
-          if (key2index.has(key)) {
-            indices.push(key2index.get(key));
-          }
-        });
-        data.setSelection(indices);
-      });
-      data.on('selectionChanged', (indices) => {
-        const keys = indices.map((index) => index2key.get(index));
-        if (keys.length === 0) {
-          selectionHandle.clear();
-        } else {
-          selectionHandle.set(keys);
-        }
-      });
-
-      const filterHandle = new crosstalk.FilterHandle();
-      filterHandle.setGroup(group);
-      filterHandle.on('change', function (e) {
-        if (e.sender === filterHandle) {
-          return;
-        }
-        if (!e.value) {
-          data.setFilter(null);
-        } else {
-          const included = new Set(e.value.map((d) => key2index.get(d)));
-          data.setFilter((d) => included.has(d.i));
-        }
-      });
-      data.on('orderChanged', (oldOrder, newOrder) => {
-        if (newOrder.length === data.getTotalNumberOfRows()) {
-          // all visible
-          filterHandle.clear();
-        } else {
-          const keys = newOrder.map((d) => index2key.get(d));
-          filterHandle.set(keys);
-        }
-      });
-
-      return {
-        selectionHandle: selectionHandle,
-        filterHandle: filterHandle
-      };
-    }
+    let data = null;
+    let lineup = null;
+    let crossTalk = null;
 
     return {
-      renderValue(x) {
+      renderValue: (x) => {
+        const rows = HTMLWidgets.dataframeToD3(x.data);
 
-        if (!ctx) {
-          ctx = {};
-
+        // update data
+        if (!data) {
+          data = new LineUpJS.LocalDataProvider(rows, this.toCols(x.colnames, x.cols), {
+            filterGlobally: x.options.filterGlobally,
+            multiSelection: !x.options.singleSelection,
+            maxGroupColumns: x.options.noCriteriaLimits ? Infinity: 1,
+            maxNestedSortingCriteria: x.options.noCriteriaLimits ? Infinity: 1
+          });
+        } else {
+          data.clearColumns();
+          this.toCols(x.colnames, x.cols).forEach((desc) => data.pushDesc(desc));
+          data.setData(rows);
         }
-        const crosstalk = x.crosstalk;
 
+        const rankings = Object.keys(x.rankings).sort();
+        if (rankings.length === 0 || (rankings.length === 1 && !x.rankings[rankings[0]])) {
+          data.deriveDefault();
+        } else {
+          rankings.forEach((ranking) => this.pushRanking(data, x.rankings[ranking]));
+        }
 
-        console.log('render');
-        //const cols = LineUpJS.deriveColors(x.colnames.map(function (c) {
-        //  return x.cols[c];
-        //}));
+        // update cross talk
+        if (x.crosstalk.group && x.crosstalk.key) {
+          if (!crossTalk) {
+            crossTalk = this.crossTalk(data);
+          }
+          crossTalk(x.crosstalk.group, x.crosstalk.key);
+        }
 
-
-        //const rows = HTMLWidgets.dataframeToD3(x.data);
-        //data = LineUpJS.createLocalStorage(rows, cols);
-        //data.deriveDefault();
-        //lineup.changeDataStorage(data);
-        //lineup.update();
+        if (lineup) {
+          lineup.destroy();
+        }
+        lineup = new LineUpJS.Taggle(el, data, {
+          animated: x.options.animated,
+          sidePanel: x.options.sidePanel,
+          sumamryHeader: x.options.summaryHeader
+        });
       },
 
       resize(width, height) {
