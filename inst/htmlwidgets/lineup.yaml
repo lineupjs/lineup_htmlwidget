@@ -1,13 +1,8 @@
-# (uncomment to add a dependency)
 dependencies:
   - name: lineupjs
-    version: 1.0.0
-    src: htmlwidgets/bower_components
-    script: 
-      - es5-shim/es5-shim.min.js
-      - es6-shim/es6-shim.min.js
-      - d3/d3.min.js
-      - lineupjs/build/LineUpJS.js
-    stylesheet: 
-      - font-awesome/css/font-awesome.min.css
-      - lineupjs/build/style.min.css
+    version: 3.0.0
+    src: htmlwidgets/dist
+    script:
+      - LineUpJS.min.js
+    stylesheet:
+      - LineUpJS.min.css

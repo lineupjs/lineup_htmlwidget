@@ -8,7 +8,8 @@ Installation
 ------------
 
 ```R
-devtools::install_github("Caleydo/lineup_htmlwidget")
+devtools::install_github("rstudio/crosstalk")
+devtools::install_github("sgratzl/lineup_htmlwidget")
 library(lineup)
 ```
 
@@ -19,11 +20,8 @@ Examples
 lineup(mtcars)
 ```
 
-![mtcars](https://cloud.githubusercontent.com/assets/4129778/22211814/9ee17098-e18e-11e6-8a65-2fa1ea22d035.png)
-
 ```R
 lineup(iris)
 ```
 
-![iris](https://cloud.githubusercontent.com/assets/4129778/22211811/9cd10ebc-e18e-11e6-9f76-5a9f24c4e79a.png)
 

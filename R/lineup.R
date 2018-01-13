@@ -1,20 +1,33 @@
 #' LineUp module
 #'
-#' a htmlwidget wrapper around LineUp (http://lineup.caleydo.org)
+#' a htmlwidget wrapper around LineUp (https://github.com/sgratzl/lineupjs)
 #'
 #' @import htmlwidgets
 #'
 #' @export
-lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
+lineup <- function(data, width = NULL, height = NULL, elementId = NULL,
+    dependencies = crosstalk::crosstalkLibs()) {
+  cat('hello')
+
+  if (is.SharedData(data)) {
+      # Using Crosstalk
+    key <- data$key()
+    group <- data$groupName()
+    data <- data$origData()
+  } else {
+    # Not using Crosstalk
+    key <- NULL
+    group <- NULL
+  }
   # escape remove .
   colnames(data) <- gsub("[.]", "_", colnames(data))
-  
+
   toDescription <- function(col, colname) {
     clazz <- class(col)
     # print(paste(colname, clazz))
     if (clazz == 'numeric') {
       list(type='number',column=colname, domain=c(min(col),max(col)))
-    } else if (clazz == 'factor') { 
+    } else if (clazz == 'factor') {
       list(type='categorical',column=colname, categories=levels(col))
     } else {
       list(type='string', column=colname)
@@ -24,12 +37,13 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
   cols = mapply(toDescription, data, colnames(data), SIMPLIFY=F)
   # insert id column
   cols[['rowname']] = list(type='string',column='rowname')
-  
+
   # forward options using x
   x = list(
     data = cbind(rowname=rownames(data), data),
     colnames = c('rowname', colnames(data)),
-    cols = cols
+    cols = cols,
+    crosstalk = list(key = key, group = group)
   )
 
   # create widget
@@ -39,7 +53,8 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
     width = width,
     height = height,
     package = 'lineup',
-    elementId = elementId
+    elementId = elementId,
+    dependencies = crosstalk::crosstalkLibs()
   )
 }
 
@@ -60,7 +75,7 @@ lineup <- function(data, width = NULL, height = NULL, elementId = NULL) {
 #' @name lineup-shiny
 #'
 #' @export
-lineupOutput <- function(outputId, width = '100%', height = '400px'){
+lineupOutput <- function(outputId, width = '100%', height = '400px') {
   htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineup')
 }
 
