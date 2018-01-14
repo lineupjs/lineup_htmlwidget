@@ -137,7 +137,7 @@ HTMLWidgets.widget({
         if (lineup) {
           lineup.destroy();
         }
-        lineup = new LineUpJS.Taggle(el, data, {
+        lineup = new LineUpJS.LineUp(el, data, {
           animated: x.options.animated,
           sidePanel: x.options.sidePanel,
           sumamryHeader: x.options.summaryHeader
