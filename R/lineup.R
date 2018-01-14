@@ -44,7 +44,7 @@ lineup = function(data,
                   ...) {
 
   # merge with defaults
-  options = c(
+  options = replace(
     list(
       filterGlobally = TRUE,
       singleSelection = FALSE,
@@ -53,7 +53,7 @@ lineup = function(data,
       sidePanel = 'collapsed',
       summaryHeader = TRUE
     ),
-    options
+    values = options
   )
 
   if (crosstalk::is.SharedData(data)) {
@@ -90,7 +90,7 @@ lineup = function(data,
   # convert columns
   cols = mapply(toDescription, data, colnames(data), SIMPLIFY = F)
   # insert id column
-  cols[['rowname']] = list(type = 'string', column = 'rowname')
+  cols[['rowname']] = list(type = 'string', column = 'rowname', frozen = TRUE)
 
   # forward options using x
   x = list(

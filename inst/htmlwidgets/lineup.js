@@ -24,8 +24,19 @@ HTMLWidgets.widget({
       data.setSelection(indices);
     });
 
-    data.on('selectionChanged', (indices) => {
-      const keys = indices.map((index) => index2key.get(index));
+    const arrayEquals = (a, b) => {
+      if (a.length !== b.length) {
+        return false;
+      }
+      return a.every((ai, i) => ai === b[i]);
+    };
+
+    data.on('selectionChanged.crosstalk', (indices) => {
+      const keys = indices.map((index) => index2key.get(index)).sort();
+      const old = selectionHandle.value.sort();
+      if (arrayEquals(keys, old)) {
+        return;
+      }
       if (keys.length === 0) {
         selectionHandle.clear();
       } else {
@@ -45,12 +56,16 @@ HTMLWidgets.widget({
         data.setFilter((d) => included.has(d.i));
       }
     });
-    data.on('orderChanged', (oldOrder, newOrder) => {
-      if (newOrder.length === data.getTotalNumberOfRows()) {
+    data.on('orderChanged.crosstalk', (oldOrder, newOrder) => {
+      const keys = newOrder.length === data.getTotalNumberOfRows() ? [] : newOrder.map((d) => index2key.get(d)).sort();
+      const old = filterHandle.value.sort();
+      if (arrayEquals(keys, old)) {
+        return;
+      }
+      if (keys.length === 0) {
         // all visible
         filterHandle.clear();
       } else {
-        const keys = newOrder.map((d) => index2key.get(d));
         filterHandle.set(keys);
       }
     });
@@ -139,7 +154,8 @@ HTMLWidgets.widget({
         }
         lineup = new LineUpJS.LineUp(el, data, {
           animated: x.options.animated,
-          sidePanel: x.options.sidePanel,
+          panel: x.options.sidePanel !== false,
+          panelCollapsed: x.options.sidePanel === 'collapsed',
           sumamryHeader: x.options.summaryHeader
         });
       },
