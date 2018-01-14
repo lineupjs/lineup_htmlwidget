@@ -36,7 +36,7 @@ lineup = function(data,
                     singleSelection = FALSE,
                     noCriteriaLimits = FALSE,
                     animated = TRUE,
-                    sidePanel = TRUE,
+                    sidePanel = 'collapsed',
                     summaryHeader = TRUE
                   ),
                   ranking = NULL,

@@ -33,7 +33,7 @@ HTMLWidgets.widget({
 
     data.on('selectionChanged.crosstalk', (indices) => {
       const keys = indices.map((index) => index2key.get(index)).sort();
-      const old = selectionHandle.value.sort();
+      const old = (selectionHandle.value || []).sort();
       if (arrayEquals(keys, old)) {
         return;
       }
@@ -58,7 +58,7 @@ HTMLWidgets.widget({
     });
     data.on('orderChanged.crosstalk', (oldOrder, newOrder) => {
       const keys = newOrder.length === data.getTotalNumberOfRows() ? [] : newOrder.map((d) => index2key.get(d)).sort();
-      const old = filterHandle.value.sort();
+      const old = (filterHandle.filteredKeys || []).sort();
       if (arrayEquals(keys, old)) {
         return;
       }
@@ -163,8 +163,8 @@ HTMLWidgets.widget({
       resize(width, height) {
         el.style.width = width;
         el.style.height = height;
-        if (ctx) {
-          ctx.lineup.update();
+        if (lineup) {
+          lineup.update();
         }
       }
 

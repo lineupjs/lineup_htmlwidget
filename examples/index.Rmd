@@ -30,18 +30,18 @@ lineup(iris)
 
 ## Cross Talk
 
-The LineUp HTMLWidget supports [Crosstalk](http://rstudio.github.io/crosstalk/) to sync selection and filtering among widgets. 
+The LineUp HTMLWidget supports [Crosstalk](http://rstudio.github.io/crosstalk/) to sync selection and filtering among widgets.
 
-```{r crosstalk}
-shared_mtcars = SharedData$new(mtcars)
 
-list(
-  filter_checkbox("cyl", "Cylinders", shared_mtcars, ~cyl, inline = TRUE),
-  filter_slider("hp", "Horsepower", shared_mtcars, ~hp, width = "100%")
-)
+```{r crosstalk_iris}
+devtools::install_github("jcheng5/d3scatter")
+library(d3scatter)
 
-lineup(shared_mtcars)
+shared_iris = SharedData$new(iris)
+
+d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width="100%")
 ```
 
-
-
+```{r crosstalk_iris_lineup}
+lineup(shared_iris, width="100%")
+```

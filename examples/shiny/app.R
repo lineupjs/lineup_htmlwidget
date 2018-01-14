@@ -10,35 +10,28 @@
 library(shiny)
 library(crosstalk)
 library(lineup)
+library(d3scatter)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  titlePanel("LineUp Shiny Example"),
 
-   # Application title
-   titlePanel("Old Faithful Geyser Data"),
-
-   # Sidebar with a slider input for number of bins
-   sidebarLayout(
-      sidebarPanel(
-         sliderInput("filter",
-                     "filter",
-                     min = 1,
-                     max = 50,
-                     value = 30)
-      ),
-
-      # Show a plot of the generated distribution
-      mainPanel(
-        lineupOutput("lineup1")
-      )
-   )
+  fluidRow(
+    column(5, d3scatterOutput("scatter1")),
+    column(7, lineupOutput("lineup1"))
+  )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  data = SharedData$new(iris)
+  shared_iris <- SharedData$new(iris)
+
+  output$scatter1 <- renderD3scatter({
+    d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width = "100%")
+  })
+
   output$lineup1 <- renderLineup({
-    lineup(data)
+    lineup(shared_iris, width = "100%")
   })
 }
 
