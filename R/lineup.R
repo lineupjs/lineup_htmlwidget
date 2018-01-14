@@ -14,7 +14,7 @@
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
 #'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
-#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: TRUE)}
+#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
 #'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
@@ -28,7 +28,7 @@
 #' lineup(mtcars)
 #' lineup(iris)
 lineup = function(data,
-                  width = NULL,
+                  width = '100%',
                   height = NULL,
                   elementId = NULL,
                   options = list(
@@ -50,7 +50,7 @@ lineup = function(data,
       singleSelection = FALSE,
       noCriteriaLimits = FALSE,
       animated = TRUE,
-      sidePanel = TRUE,
+      sidePanel = 'collapsed',
       summaryHeader = TRUE
     ),
     options
@@ -166,7 +166,7 @@ lineupRanking = function(columns = c('_*', '*'),
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
-#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
 #' @param expr An expression that generates a lineup
 #' @param env The environment in which to evaluate \code{expr}.
