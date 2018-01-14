@@ -29,6 +29,8 @@ lineup(mtcars)
 lineup(iris)
 ```
 
+![iris output](https://user-images.githubusercontent.com/4129778/34919941-fec50232-f96a-11e7-95be-9eefb213e3d6.png)
+
 Crosstalk Example
 -------------
 
@@ -44,6 +46,9 @@ d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width="100%")
 ```R
 lineup(shared_iris, width="100%")
 ```
+
+![crosstalk output](https://user-images.githubusercontent.com/4129778/34919938-fb7166de-f96a-11e7-8ea1-443e0923b160.png)
+
 
 
 Shiny Example
