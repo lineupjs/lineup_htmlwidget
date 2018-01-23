@@ -156,7 +156,7 @@ HTMLWidgets.widget({
           animated: x.options.animated,
           panel: x.options.sidePanel !== false,
           panelCollapsed: x.options.sidePanel === 'collapsed',
-          sumamryHeader: x.options.summaryHeader
+          summary: x.options.summaryHeader
         });
       },
 
