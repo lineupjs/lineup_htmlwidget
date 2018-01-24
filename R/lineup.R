@@ -3,46 +3,18 @@
 #'
 #' a htmlwidget wrapper around LineUpJS (\url{https://github.com/sgratzl/lineupjs})
 #'
-#'
-#' @param data data frame like object i.e. also crosstalk shared data frame
-#' @param width width of the element
-#' @param height height of the element
-#' @param elementId unique element id
-#' @param options LineUp options
-#'  \describe{
-#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
-#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
-#'    \item{animated}{use animated transitions (default: TRUE)}
-#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
-#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
-#'  }
-#' @param ranking ranking definition created using \code{\link{lineupRanking}}
-#' @param dependencies include crosstalk dependencies
-#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
-#'
-#' @return html lineup widget
-#' @export
-#'
-#' @examples
-#' lineup(mtcars)
-#' lineup(iris)
-lineup = function(data,
-                  width = '100%',
-                  height = NULL,
-                  elementId = NULL,
-                  options = list(
-                    filterGlobally = TRUE,
-                    singleSelection = FALSE,
-                    noCriteriaLimits = FALSE,
-                    animated = TRUE,
-                    sidePanel = 'collapsed',
-                    summaryHeader = TRUE
-                  ),
-                  ranking = NULL,
-                  dependencies = crosstalk::crosstalkLibs(),
-                  ...) {
 
+
+
+lineupImpl = function(data,
+                  width,
+                  height,
+                  elementId,
+                  options,
+                  ranking,
+                  dependencies,
+                  lineupType,
+                  ...) {
   # merge with defaults
   options = replace(
     list(
@@ -51,7 +23,10 @@ lineup = function(data,
       noCriteriaLimits = FALSE,
       animated = TRUE,
       sidePanel = 'collapsed',
-      summaryHeader = TRUE
+      summaryHeader = TRUE,
+      overviewMode = FALSE,
+      expandLineOnHover = FALSE,
+      defaultSlopeGraphMode = 'item'
     ),
     values = options
   )
@@ -103,7 +78,7 @@ lineup = function(data,
   )
   # create widget
   htmlwidgets::createWidget(
-    name = 'lineup',
+    name = lineupType,
     x,
     width = width,
     height = height,
@@ -111,6 +86,105 @@ lineup = function(data,
     elementId = elementId,
     dependencies = dependencies
   )
+}
+
+#' lineup - factory for LineUp HTMLWidget
+#'
+#' @param data data frame like object i.e. also crosstalk shared data frame
+#' @param width width of the element
+#' @param height height of the element
+#' @param elementId unique element id
+#' @param options LineUp options
+#'  \describe{
+#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
+#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
+#'    \item{animated}{use animated transitions (default: TRUE)}
+#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
+#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
+#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
+#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'  }
+#' @param ranking ranking definition created using \code{\link{lineupRanking}}
+#' @param dependencies include crosstalk dependencies
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#'
+#' @return html lineup widget
+#' @export
+#'
+#' @examples
+#' lineup(mtcars)
+#' lineup(iris)
+lineup = function(data,
+                  width = '100%',
+                  height = NULL,
+                  elementId = NULL,
+                  options = list(
+                    filterGlobally = TRUE,
+                    singleSelection = FALSE,
+                    noCriteriaLimits = FALSE,
+                    animated = TRUE,
+                    sidePanel = 'collapsed',
+                    summaryHeader = TRUE,
+                    overviewMode = FALSE,
+                    expandLineOnHover = FALSE,
+                    defaultSlopeGraphMode = 'item'
+                  ),
+                  ranking = NULL,
+                  dependencies = crosstalk::crosstalkLibs(),
+                  ...) {
+  lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='lineup', ...)
+}
+
+
+#' taggle - factory for Taggle HTMLWidget
+#'
+#' @param data data frame like object i.e. also crosstalk shared data frame
+#' @param width width of the element
+#' @param height height of the element
+#' @param elementId unique element id
+#' @param options LineUp options
+#'  \describe{
+#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
+#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
+#'    \item{animated}{use animated transitions (default: TRUE)}
+#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
+#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
+#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
+#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'  }
+#' @param ranking ranking definition created using \code{\link{lineupRanking}}
+#' @param dependencies include crosstalk dependencies
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#'
+#' @return html taggle widget
+#' @export
+#'
+#' @examples
+#' taggle(mtcars)
+#' taggle(iris)
+taggle = function(data,
+                  width = '100%',
+                  height = NULL,
+                  elementId = NULL,
+                  options = list(
+                    filterGlobally = TRUE,
+                    singleSelection = FALSE,
+                    noCriteriaLimits = FALSE,
+                    animated = TRUE,
+                    sidePanel = 'collapsed',
+                    summaryHeader = TRUE,
+                    overviewMode = FALSE,
+                    expandLineOnHover = FALSE,
+                    defaultSlopeGraphMode = 'item'
+                  ),
+                  ranking = NULL,
+                  dependencies = crosstalk::crosstalkLibs(),
+                  ...) {
+  lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='taggle', ...)
 }
 
 #' helper function for creating a LineUp ranking definition as used by \code{\link{lineup}}
@@ -191,4 +265,21 @@ renderLineup = function(expr,
     expr = substitute(expr)
   } # force quoted
   htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
+}
+
+taggleOutput = function(outputId,
+                        width = '100%',
+                        height = '800px') {
+  htmlwidgets::shinyWidgetOutput(outputId, 'taggle', width, height, package = 'lineup')
+}
+
+#' @rdname taggle-shiny
+#' @export
+renderTaggle = function(expr,
+                        env = parent.frame(),
+                        quoted = FALSE) {
+  if (!quoted) {
+    expr = substitute(expr)
+  } # force quoted
+  htmlwidgets::shinyRenderWidget(expr, taggleOutput, env, quoted = TRUE)
 }
