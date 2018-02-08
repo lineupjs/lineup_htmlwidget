@@ -111,11 +111,12 @@
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
 #' @return html lineup widget
-#' @export
 #'
 #' @examples
 #' lineup(mtcars)
 #' lineup(iris)
+#'
+#' @export
 lineup = function(data,
                   width = '100%',
                   height = NULL,
@@ -161,11 +162,12 @@ lineup = function(data,
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
 #' @return html taggle widget
-#' @export
 #'
 #' @examples
 #' taggle(mtcars)
 #' taggle(iris)
+#'
+#' @export
 taggle = function(data,
                   width = '100%',
                   height = NULL,
@@ -214,12 +216,13 @@ taggle = function(data,
 #'    \item{impose}{color a numerical column (column) with the color of a categorical column (categoricalColumn), changed \code{list(column = 'a', categoricalColumn = 'b')}}
 #'  }
 #' @return a configured lineup ranking config
-#' @export
 #'
 #' @examples
 #' lineupRanking(columns=c('*'))
 #' lineupRanking(columns=c('*'), sortBy = c('hp'))
 #' lineupRanking(columns=c('*', 'sum'), sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
+#'
+#' @export
 lineupRanking = function(columns = c('_*', '*'),
                          sortBy = c(),
                          groupBy = c(),
