@@ -6,7 +6,7 @@
 
 
 
-lineupImpl = function(data,
+.lineupImpl = function(data,
                   width,
                   height,
                   elementId,
@@ -134,7 +134,7 @@ lineup = function(data,
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
-  lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='lineup', ...)
+  .lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='lineup', ...)
 }
 
 
@@ -184,12 +184,12 @@ taggle = function(data,
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
-  lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='taggle', ...)
+  .lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='taggle', ...)
 }
 
 #' helper function for creating a LineUp ranking definition as used by \code{\link{lineup}}
 #'
-#' @param columns list of columns shown in this ranking, besides \textit{column names of the given data frame} following special columsn are available
+#' @param columns list of columns shown in this ranking, besides \emph{column names of the given data frame} following special columsn are available
 #'  \describe{
 #'    \item{*}{include all data frame columns}
 #'    \item{_*}{add multiple support columns (_aggregate, _rank, _selection)}
@@ -213,7 +213,7 @@ taggle = function(data,
 #'    \item{script}{scripted (JS code) combination of multiple numeric columns, extras \code{list(code = '...')}}
 #'    \item{impose}{color a numerical column (column) with the color of a categorical column (categoricalColumn), changed \code{list(column = 'a', categoricalColumn = 'b')}}
 #'  }
-#' @return
+#' @return a configured lineup ranking config
 #' @export
 #'
 #' @examples
@@ -256,6 +256,8 @@ lineupOutput = function(outputId,
   htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineup')
 }
 
+#' Shiny render bindings for lineup
+#'
 #' @rdname lineup-shiny
 #' @export
 renderLineup = function(expr,
@@ -273,6 +275,8 @@ taggleOutput = function(outputId,
   htmlwidgets::shinyWidgetOutput(outputId, 'taggle', width, height, package = 'lineup')
 }
 
+#' Shiny render bindings for taggle
+#'
 #' @rdname taggle-shiny
 #' @export
 renderTaggle = function(expr,
