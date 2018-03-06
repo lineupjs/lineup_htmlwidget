@@ -3,6 +3,6 @@ dependencies:
     version: 3.0.1
     src: htmlwidgets/dist
     script:
-      - LineUpJS.min.js
+      - LineUpJS.js
     stylesheet:
-      - LineUpJS.min.css
+      - LineUpJS.css
