@@ -6,8 +6,8 @@ Version: 3.0.1.2
 Date: 2018-02-08
 Authors@R: person("Samuel", "Gratzl", email = "samuel_gratzl@gmx.at", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <samuel_gratzl@gmx.at>
-URL: https://github.com/sgratzl/lineup_htmlwidget/
-BugReports: https://github.com/sgratzl/lineup_htmlwidget/issues
+URL: https://github.com/datavisyn/lineup_htmlwidget/
+BugReports: https://github.com/datavisyn/lineup_htmlwidget/issues
 Depends: R (>= 3.2.0)
 License: MIT
 Encoding: UTF-8
