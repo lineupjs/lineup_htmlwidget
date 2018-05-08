@@ -4,7 +4,7 @@ LineUp.js as HTMLWidget
 [![License: MIT][mit-image]][mit-url]
 
 LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
-This is a [HTMLWidget](http://www.htmlwidgets.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/sgratzl/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
+This is a [HTMLWidget](http://www.htmlwidgets.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/datavisyn/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
 
 It can be used within standalone [R Shiny](https://shiny.rstudio.com/) apps or [R Markdown](http://rmarkdown.rstudio.com/) files. **Integrated plotting does not work due to an outdated integrated Webkit version in RStudio**.
 [Crosstalk](https://rstudio.github.io/crosstalk/) is supported for synching selections and filtering among widgets. 
@@ -14,7 +14,7 @@ Installation
 
 ```R
 devtools::install_github("rstudio/crosstalk")
-devtools::install_github("sgratzl/lineup_htmlwidget")
+devtools::install_github("datavisyn/lineup_htmlwidget")
 library(lineup)
 ```
 

@@ -14,7 +14,7 @@ This is a simple example how to include the LineUp [HTMLWidget](http://www.htmlw
 
 ```{r libraries}
 devtools::install_github("rstudio/crosstalk")
-# devtools::install_github("sgratzl/lineup_htmlwidget")
+# devtools::install_github("datavisyn/lineup_htmlwidget")
 
 library(crosstalk)
 library(lineup)
