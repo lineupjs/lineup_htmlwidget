@@ -1,9 +1,19 @@
 Package: lineup
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Type: Package
+Title: HTMLWidget wrapper of LineUp for Visual Analysis of Multi-Attribute Rankings
+Description: LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. This is a htmlwidget wrapper around the JavaScript library LineUp.js.
+Version: 3.0.1.2
+Date: 2018-02-08
+Authors@R: person("Samuel", "Gratzl", email = "samuel_gratzl@gmx.at", role = c("aut", "cre"))
+Maintainer: Samuel Gratzl <samuel_gratzl@gmx.at>
+URL: https://github.com/sgratzl/lineup_htmlwidget/
+BugReports: https://github.com/sgratzl/lineup_htmlwidget/issues
 Depends: R (>= 3.2.0)
-License: What license is it under?
+License: MIT
 Encoding: UTF-8
+Imports:
+  htmlwidgets,
+  htmltools,
+  crosstalk
 LazyData: true
+RoxygenNote: 6.0.1
