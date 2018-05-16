@@ -1,4 +1,4 @@
-/*! lineupjs - v3.0.1-beta.7 - 2018
+/*! lineupjs - v3.0.1-beta.11 - 2018
 * https://lineup.js.org
 * Copyright (c) 2018 Samuel Gratzl; Licensed BSD-3-Clause*/
 
@@ -576,11 +576,6 @@
  * @param {Bool} $warn [true] - Warn when module has been already imported
  * @require $imported-modules
  */
-.lineup-engine *,
-.lineup-engine *::before,
-.lineup-engine *::after {
-  box-sizing: border-box; }
-
 .lineup-engine .loading {
   background: url(data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEyNCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDEyNCAzMCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQogIDxzdHlsZT4vKiA8IVtDREFUQVsgKi8NCiAgICByZWN0IHsNCiAgICAgIGZpbGw6ICNjMWMxYzE7DQogICAgfS8qIF1dPiAqLw0KICA8L3N0eWxlPg0KICA8cmVjdCB4PSI1MCIgeT0iMTMiIHdpZHRoPSI0IiBoZWlnaHQ9IjUiIC8+DQogIDxyZWN0IHg9IjYwIiB5PSI1IiB3aWR0aD0iNCIgaGVpZ2h0PSIyMSIgLz4NCiAgPHJlY3QgeD0iNzAiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjEzIiAvPg0KPC9zdmc+DQo=) center contain repeat no-repeat;
   background-blend-mode: overlay; }
@@ -616,7 +611,8 @@
        */ }
   .lineup-engine article.le-row-animation > * {
     overflow: hidden !important;
-    transition: all 0.5s linear; }
+    transition: all 0.5s linear;
+    will-change: transform, opacity, height; }
     .lineup-engine article.le-row-animation > *[data-animation=show] {
       transition: all 0.25s linear; }
     .lineup-engine article.le-row-animation > *[data-animation=hide] {
@@ -640,7 +636,10 @@
   flex-direction: column;
   align-items: stretch;
   align-content: stretch;
-  overflow-x: auto; }
+  box-sizing: border-box; }
+  .lineup-engine *::before,
+  .lineup-engine *::after {
+    box-sizing: inherit; }
   .lineup-engine > header {
     flex: 0 0 auto;
     overflow-x: hidden;
@@ -650,11 +649,10 @@
     @supports (-moz-appearance: meterbar) {
       .lineup-engine > header {
         overflow-y: hidden; } }
-    .lineup-engine > header > :last-child {
-      margin-right: 5px; }
   .lineup-engine > main {
     flex: 1 1 auto;
-    overflow-y: auto; }
+    overflow: auto;
+    position: relative; }
   .lineup-engine > header,
   .lineup-engine > main {
     display: flex;
@@ -667,50 +665,42 @@
       flex: 0 0 auto; }
   .lineup-engine > header > article,
   .lineup-engine > main > article > div {
-    display: grid;
-    grid-auto-columns: 0;
-    grid-template-rows: auto;
-    grid-auto-flow: column;
-    align-items: stretch;
-    justify-items: stretch; }
-    .lineup-engine > header > article > .frozen,
-    .lineup-engine > main > article > div > .frozen {
-      position: sticky;
-      left: 0;
-      background-color: white;
-      z-index: 1; }
+    display: flex; }
+  .lineup-engine.le-shifted > header > article > .frozen,
+  .lineup-engine.le-shifted > main > article > div > .frozen {
+    position: sticky;
+    left: 0;
+    background-color: white;
+    z-index: 1; }
   .lineup-engine > main > article > div {
     position: relative;
     background: white;
-    background-clip: content-box; }
-  .lineup-engine > main:not(.scrolling) > article > div {
-    /* @include collapsing-row-border($engine_row_hover_width, #eee); */ }
-    .lineup-engine > main:not(.scrolling) > article > div:hover, .lineup-engine > main:not(.scrolling) > article > div.le-highlighted {
-      /* use box-shadow to create collapsing border (@see https://stackoverflow.com/a/28807765) */
-      box-shadow: 2px 0 0 0 #ffa500, 0 2px 0 0 #ffa500, 2px 2px 0 0 #ffa500, 2px 0 0 0 #ffa500 inset, 0 2px 0 0 #ffa500 inset; }
-  .lineup-engine > main > article > footer {
+    background-clip: content-box;
+    box-sizing: content-box; }
+  .lineup-engine > main:not(.scrolling) > article > div:hover, .lineup-engine > main:not(.scrolling) > article > div.le-highlighted {
+    /* use box-shadow to create collapsing border (@see https://stackoverflow.com/a/28807765) */
+    box-shadow: 2px 0 0 0 #ffa500, 0 2px 0 0 #ffa500, 2px 2px 0 0 #ffa500, 2px 0 0 0 #ffa500 inset, 0 2px 0 0 #ffa500 inset; }
+  .lineup-engine > header > footer,
+  .lineup-engine > main > footer {
     transition: none !important;
     height: 1px !important;
+    width: 1px;
+    left: -1px;
     visibility: hidden; }
-  .lineup-engine.lineup-engine-striped > main > article:not(.odd) > div:nth-child(odd),
-  .lineup-engine.lineup-engine-striped > main > article.odd > div:nth-child(even),
-  .lineup-engine.lineup-engine-striped > main > article:not(.odd) > div:nth-child(odd) > .frozen,
-  .lineup-engine.lineup-engine-striped > main > article.odd > div:nth-child(even) > .frozen {
+  .lineup-engine > main > article {
+    position: absolute; }
+  .lineup-engine.lineup-engine-striped > main > article:not(.odd) > div:nth-child(even),
+  .lineup-engine.lineup-engine-striped > main > article.odd > div:nth-child(odd),
+  .lineup-engine.lineup-engine-striped > main > article:not(.odd) > div:nth-child(even) > .frozen,
+  .lineup-engine.lineup-engine-striped > main > article.odd > div:nth-child(odd) > .frozen {
     background-color: #f7f7f7; }
 
-.lineup-multi-engine > header,
-.lineup-multi-engine > main {
-  display: grid; }
-
-.lineup-engine > header > article,
-.lineup-engine > main > article > * {
-  grid-column-gap: 5px; }
+.lineup-engine > header .lu-header,
+.lineup-engine .lu-row > * {
+  margin-right: 5px; }
 
 section.lu-header {
-  text-align: center;
   color: black;
-  overflow: unset !important;
-  margin-right: -5px;
   margin-bottom: 15px;
   border-bottom: 1px solid black; }
   section.lu-header.frozen::before {
@@ -726,12 +716,13 @@ section.lu-header {
     background: white;
     pointer-events: none; }
   section.lu-header:hover {
-    background-color: rgba(186, 186, 186, 0.5) !important; }
+    background-color: #d2d2d2; }
     section.lu-header:hover > .lu-toolbar {
       color: #999; }
   section.lu-header > .lu-toolbar {
     color: #c1c1c1; }
   section.lu-header > .lu-label {
+    text-align: center;
     padding-left: 0.8em;
     margin-right: 5px;
     font-weight: 500; }
@@ -741,20 +732,16 @@ section.lu-header {
     top: 1px;
     font-size: 11pt; }
   section.lu-header > .lu-summary {
-    height: 2em;
-    margin-right: 5px; }
+    height: 2em; }
     section.lu-header > .lu-summary:empty {
       display: none; }
     section.lu-header > .lu-summary[data-renderer=aggregate], section.lu-header > .lu-summary[data-renderer=selection] {
       display: block; }
-  section.lu-header > .lu-nested {
-    grid-column-gap: 5px;
-    padding-right: 10px; }
-    section.lu-header > .lu-nested > section {
-      border-bottom: none; }
+  section.lu-header > .lu-nested > section {
+    border-bottom: none; }
   section.lu-header > .lu-handle {
     position: absolute;
-    right: 0;
+    right: -5px;
     width: 5px;
     height: 100%;
     background-color: white;
@@ -857,8 +844,6 @@ section.lu-header {
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis; }
-  .lu-row .lu-grid-space {
-    grid-column-gap: 5px; }
   .lu-row > canvas {
     width: 100%;
     height: 100%; }
@@ -1332,6 +1317,10 @@ section.lu-header {
     .lu [data-renderer=verticalbar] > div {
       position: relative; }
 
+section.lu-slopegraph {
+  width: 200px;
+  position: relative; }
+
 section.lu-slopegraph svg {
   shape-rendering: geometricprecision;
   height: 100%;
@@ -1357,7 +1346,8 @@ section.lu-slopegraph svg {
 section.lu-slopegraph-header {
   display: flex;
   padding-top: 1.4em;
-  justify-content: center; }
+  justify-content: center;
+  width: 200px; }
   section.lu-slopegraph-header i {
     padding: 2px 4px;
     transition: all 0.5s ease;
@@ -1427,7 +1417,8 @@ section.lu-slopegraph-header {
       width: 0.8em;
       text-align: center; }
   .lu-side-panel.lu-collapsed {
-    min-width: 0; }
+    min-width: 0;
+    transform: unset; }
     .lu-side-panel.lu-collapsed > :not(.lu-collapser) {
       display: none; }
     .lu-side-panel.lu-collapsed .lu-collapser::before {
@@ -1601,6 +1592,8 @@ article.lu-side-panel-entry {
  */
 .lineup-engine {
   /* since the row height should be configurable -> dynamic rule, see TaggleRenderer */ }
+  .lineup-engine [data-lod=low][data-agg=detail] > * {
+    overflow: hidden; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover)[data-meta~=first] {
     /* change rendering of the first row for a group to show the collapse arrow of `[data-renderer=aggregate]` */
     z-index: 11;
@@ -1608,31 +1601,31 @@ article.lu-side-panel-entry {
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) .lu-hover-only,
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) .lu-selection-only,
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer] {
-    display: none !important; }
+    visibility: hidden; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=heatmap],
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=catheatmap] {
-    display: block !important; }
+    visibility: visible !important; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=aggregate] {
-    display: block !important;
+    visibility: visible !important;
     overflow: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=aggregate]::before {
       position: absolute;
       left: 0;
       right: 0; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=group] {
-    display: block !important;
+    visibility: visible !important;
     overflow: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=group] > * {
       position: absolute;
       left: 0;
       right: 0; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=number] {
-    display: block !important; }
+    visibility: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=number] > * {
       top: 0;
       bottom: 0; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=boxplot] {
-    display: block !important; }
+    visibility: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=boxplot] > div {
       height: 100%; }
       .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=boxplot] > div::before,
@@ -1644,7 +1637,7 @@ article.lu-side-panel-entry {
         height: 100%;
         background: #c1c1c1; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=upset] {
-    display: block !important;
+    visibility: visible !important;
     align-items: stretch; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=upset] > div:first-child {
       display: none; }
@@ -1655,7 +1648,7 @@ article.lu-side-panel-entry {
         visibility: hidden; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=categorical],
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=brightness] {
-    display: block !important; }
+    visibility: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=categorical] > div:first-of-type,
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=brightness] > div:first-of-type {
       margin-right: 0;
@@ -1664,7 +1657,7 @@ article.lu-side-panel-entry {
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=brightness] > div:last-of-type {
       display: none; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=dot] {
-    display: block !important; }
+    visibility: visible !important; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=dot] > div {
       top: 0 !important;
       height: 100%;
@@ -1734,14 +1727,16 @@ article.lu-side-panel-entry {
     color: #ffd700; }
 
 .lu {
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse; }
+  position: relative; }
   .lu > aside {
-    flex: 0 0 auto;
+    float: right;
     display: flex;
     flex-direction: column;
     border-left: 1px solid #6d6c6c;
-    border-radius: 0; }
+    border-radius: 0;
+    height: 100%; }
   .lu > main {
-    flex: 1 1 auto; }
+    height: 100%; }
+  .lu::after {
+    content: '';
+    clear: both; }
