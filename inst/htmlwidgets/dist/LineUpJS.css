@@ -1,4 +1,4 @@
-/*! lineupjs - v3.0.1-beta.11 - 2018
+/*! lineupjs - v3.0.1-beta.12 - 2018
 * https://lineup.js.org
 * Copyright (c) 2018 Samuel Gratzl; Licensed BSD-3-Clause*/
 
@@ -218,7 +218,8 @@
   .lu-dialog.lu-filter-table > div:first-of-type input[type=checkbox]:not(:checked) ~ * {
     opacity: 0.5; }
   .lu-dialog.lu-filter-table > div:first-of-type > * {
-    display: flex; }
+    display: flex;
+    flex: 0 0 auto; }
 
 .lu-dialog .lu_filter_missing {
   margin-top: 1em; }
@@ -858,7 +859,8 @@ section.lu-header {
  */ }
   .lu .lu-row-body [data-renderer=aggregate] {
     text-align: center;
-    position: relative; }
+    position: relative;
+    overflow-x: unset; }
     .lu .lu-row-body [data-renderer=aggregate]::after {
       content: '';
       position: absolute;
