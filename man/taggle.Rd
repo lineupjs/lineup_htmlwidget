@@ -46,7 +46,9 @@ html taggle widget
 taggle - factory for Taggle HTMLWidget
 }
 \examples{
+\dontrun{
 taggle(mtcars)
 taggle(iris)
+}
 
 }

@@ -44,6 +44,7 @@ helper function for creating a LineUp ranking definition as used by \code{\link{
 \examples{
 lineupRanking(columns=c('*'))
 lineupRanking(columns=c('*'), sortBy = c('hp'))
-lineupRanking(columns=c('*', 'sum'), sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
+lineupRanking(columns=c('*', 'sum'),
+  sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
 
 }

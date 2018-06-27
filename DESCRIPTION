@@ -9,7 +9,7 @@ Maintainer: Samuel Gratzl <samuel.gratzl@datavisyn.io>
 URL: https://github.com/datavisyn/lineup_htmlwidget/
 BugReports: https://github.com/datavisyn/lineup_htmlwidget/issues
 Depends: R (>= 3.2.0)
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:
   htmlwidgets,

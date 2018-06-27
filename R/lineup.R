@@ -113,8 +113,10 @@
 #' @return html lineup widget
 #'
 #' @examples
+#' \dontrun{
 #' lineup(mtcars)
 #' lineup(iris)
+#' }
 #'
 #' @export
 lineup = function(data,
@@ -164,8 +166,10 @@ lineup = function(data,
 #' @return html taggle widget
 #'
 #' @examples
+#' \dontrun{
 #' taggle(mtcars)
 #' taggle(iris)
+#' }
 #'
 #' @export
 taggle = function(data,
@@ -220,7 +224,8 @@ taggle = function(data,
 #' @examples
 #' lineupRanking(columns=c('*'))
 #' lineupRanking(columns=c('*'), sortBy = c('hp'))
-#' lineupRanking(columns=c('*', 'sum'), sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
+#' lineupRanking(columns=c('*', 'sum'),
+#'   sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
 #'
 #' @export
 lineupRanking = function(columns = c('_*', '*'),
@@ -272,6 +277,23 @@ renderLineup = function(expr,
   htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
 }
 
+#' Shiny bindings for taggle
+#'
+#' Output and render functions for using taggle within Shiny
+#' applications and interactive Rmd documents.
+#'
+#' @param outputId output variable to read from
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
+#' @param expr An expression that generates a taggle
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
+#'
+#' @name taggle-shiny
+#'
+#' @export
 taggleOutput = function(outputId,
                         width = '100%',
                         height = '800px') {

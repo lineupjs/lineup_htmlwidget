@@ -46,7 +46,9 @@ html lineup widget
 lineup - factory for LineUp HTMLWidget
 }
 \examples{
+\dontrun{
 lineup(mtcars)
 lineup(iris)
+}
 
 }
