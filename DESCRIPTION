@@ -2,10 +2,10 @@ Package: lineup
 Type: Package
 Title: HTMLWidget wrapper of LineUp for Visual Analysis of Multi-Attribute Rankings
 Description: LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. This is a htmlwidget wrapper around the JavaScript library LineUp.js.
-Version: 3.0.1.2
-Date: 2018-02-08
-Authors@R: person("Samuel", "Gratzl", email = "samuel_gratzl@gmx.at", role = c("aut", "cre"))
-Maintainer: Samuel Gratzl <samuel_gratzl@gmx.at>
+Version: 3.0.1.12
+Date: 2018-06-27
+Authors@R: person("Samuel", "Gratzl", email = "samuel.gratzl@datavisyn.io", role = c("aut", "cre"))
+Maintainer: Samuel Gratzl <samuel.gratzl@datavisyn.io>
 URL: https://github.com/datavisyn/lineup_htmlwidget/
 BugReports: https://github.com/datavisyn/lineup_htmlwidget/issues
 Depends: R (>= 3.2.0)
