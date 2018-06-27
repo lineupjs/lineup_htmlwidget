@@ -15,7 +15,7 @@ Installation
 ```R
 devtools::install_github("rstudio/crosstalk")
 devtools::install_github("datavisyn/lineup_htmlwidget")
-library(lineup)
+library(lineupjs)
 ```
 
 Examples
@@ -56,7 +56,7 @@ Shiny Example
 ```R
 library(shiny)
 library(crosstalk)
-library(lineup)
+library(lineupjs)
 library(d3scatter)
 
 # Define UI for application that draws a histogram

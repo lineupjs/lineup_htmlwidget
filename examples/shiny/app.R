@@ -9,7 +9,7 @@
 
 library(shiny)
 library(crosstalk)
-library(lineup)
+library(lineupjs)
 library(d3scatter)
 
 # Define UI for application that draws a histogram

@@ -1,7 +1,7 @@
 
-#' LineUp module
+#' LineUpjs module
 #'
-#' a htmlwidget wrapper around LineUpJS (\url{https://github.com/datavisyn/lineupjs})
+#' a htmlwidget wrapper around LineUpJS (\url{https://lineup.js.org})
 #'
 
 
