@@ -23,6 +23,7 @@
       noCriteriaLimits = FALSE,
       animated = TRUE,
       sidePanel = 'collapsed',
+      hierarchyIndicator = TRUE,
       summaryHeader = TRUE,
       overviewMode = FALSE,
       expandLineOnHover = FALSE,
@@ -101,6 +102,7 @@
 #'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
 #'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
@@ -129,6 +131,7 @@ lineup = function(data,
                     noCriteriaLimits = FALSE,
                     animated = TRUE,
                     sidePanel = 'collapsed',
+                    hierarchyIndicator = TRUE,
                     summaryHeader = TRUE,
                     overviewMode = FALSE,
                     expandLineOnHover = FALSE,
@@ -154,6 +157,7 @@ lineup = function(data,
 #'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
 #'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
@@ -182,6 +186,7 @@ taggle = function(data,
                     noCriteriaLimits = FALSE,
                     animated = TRUE,
                     sidePanel = 'collapsed',
+                    hierarchyIndicator = TRUE,
                     summaryHeader = TRUE,
                     overviewMode = FALSE,
                     expandLineOnHover = FALSE,
