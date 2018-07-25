@@ -7,8 +7,8 @@
 lineup(data, width = "100\%", height = NULL, elementId = NULL,
   options = list(filterGlobally = TRUE, singleSelection = FALSE,
   noCriteriaLimits = FALSE, animated = TRUE, sidePanel = "collapsed",
-  summaryHeader = TRUE, overviewMode = FALSE, expandLineOnHover = FALSE,
-  defaultSlopeGraphMode = "item"), ranking = NULL,
+  hierarchyIndicator = TRUE, summaryHeader = TRUE, overviewMode = FALSE,
+  expandLineOnHover = FALSE, defaultSlopeGraphMode = "item"), ranking = NULL,
   dependencies = crosstalk::crosstalkLibs(), ...)
 }
 \arguments{
@@ -27,6 +27,7 @@ lineup(data, width = "100\%", height = NULL, elementId = NULL,
   \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
   \item{animated}{use animated transitions (default: TRUE)}
   \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+  \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
   \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
   \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
   \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
