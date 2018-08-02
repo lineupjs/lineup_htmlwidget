@@ -266,7 +266,7 @@ lineupRanking = function(columns = c('_*', '*'),
 lineupOutput = function(outputId,
                         width = '100%',
                         height = '800px') {
-  htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineup')
+  htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineupjs')
 }
 
 #' Shiny render bindings for lineup
@@ -302,7 +302,7 @@ renderLineup = function(expr,
 taggleOutput = function(outputId,
                         width = '100%',
                         height = '800px') {
-  htmlwidgets::shinyWidgetOutput(outputId, 'taggle', width, height, package = 'lineup')
+  htmlwidgets::shinyWidgetOutput(outputId, 'taggle', width, height, package = 'lineupjs')
 }
 
 #' Shiny render bindings for taggle
