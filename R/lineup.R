@@ -83,7 +83,7 @@
     x,
     width = width,
     height = height,
-    package = 'lineup',
+    package = 'lineupjs',
     elementId = elementId,
     dependencies = dependencies
   )
