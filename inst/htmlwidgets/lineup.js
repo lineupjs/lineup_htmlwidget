@@ -1,9 +1,19 @@
 (function () {
+  function assign(target, source1, source2) {
+    for (var key in source1) {
+      target[key] = source1[key];
+    }
+    if (source2) {
+      return assign(target, source2);
+    }
+    return target;
+  }
+
   const lineup = {
     name: 'lineup',
     type: 'output',
 
-    crossTalk(data) {
+    crossTalk: function(data) {
       const key2index = new Map();
       const index2key = new Map();
 
@@ -17,7 +27,7 @@
           return;
         }
         const indices = [];
-        e.value.forEach((key) => {
+        e.value.forEach(function(key) {
           if (key2index.has(key)) {
             indices.push(key2index.get(key));
           }
@@ -25,15 +35,19 @@
         data.setSelection(indices);
       });
 
-      const arrayEquals = (a, b) => {
+      const arrayEquals = function(a, b) {
         if (a.length !== b.length) {
           return false;
         }
-        return a.every((ai, i) => ai === b[i]);
+        return a.every(function(ai, i) {
+          return ai === b[i];
+        });
       };
 
-      data.on('selectionChanged.crosstalk', (indices) => {
-        const keys = indices.map((index) => index2key.get(index)).sort();
+      data.on('selectionChanged.crosstalk', function(indices) {
+        const keys = indices.map(function(index) {
+          return index2key.get(index);
+        }).sort();
         const old = (selectionHandle.value || []).sort();
         if (arrayEquals(keys, old)) {
           return;
@@ -53,12 +67,18 @@
         if (!e.value) {
           data.setFilter(null);
         } else {
-          const included = new Set(e.value.map((d) => key2index.get(d)));
-          data.setFilter((d) => included.has(d.i));
+          const included = new Set(e.value.map(function(d) {
+            return key2index.get(d);
+          }));
+          data.setFilter(function(d) {
+            return included.has(d.i);
+          });
         }
       });
-      data.on('orderChanged.crosstalk', (oldOrder, newOrder) => {
-        const keys = newOrder.length === data.getTotalNumberOfRows() ? [] : newOrder.map((d) => index2key.get(d)).sort();
+      data.on('orderChanged.crosstalk', function(_oldOrder, newOrder) {
+        const keys = newOrder.length === data.getTotalNumberOfRows() ? [] : newOrder.map(function(d) {
+          return index2key.get(d);
+        }).sort();
         const old = (filterHandle.filteredKeys || []).sort();
         if (arrayEquals(keys, old)) {
           return;
@@ -71,59 +91,69 @@
         }
       });
 
-      return (group, key) => {
+      return function(group, key) {
         selectionHandle.setGroup(group);
         filterHandle.setGroup(group);
         key2index.clear();
         index2key.clear();
 
-        key.forEach((k, i) => {
+        key.forEach(function(k, i) {
           key2index.set(k, i);
           index2key.set(i, k);
         });
       };
     },
 
-    toCols(names, descs) {
-      const cols = names.map((d) => descs[d]);
+    toCols: function(names, descs) {
+      const cols = names.map(function(d) {
+        return descs[d];
+      });
       LineUpJS.deriveColors(cols);
       return cols;
     },
 
-    pushRanking(data, ranking) {
+    pushRanking: function(data, ranking) {
       const r = LineUpJS.buildRanking();
-      const asArray = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+      const asArray = function(v) {
+        return Array.isArray(v) ? v : (v ? [v] : []);
+      };
       const defs = ranking.defs;
-      asArray(ranking.columns).forEach((col) => {
+      asArray(ranking.columns).forEach(function(col) {
         if (defs.hasOwnProperty(col)) {
           r.column(defs[col]);
         } else {
           r.column(col);
         }
       });
-      asArray(ranking.sortBy).forEach((s) => r.sortBy(s));
-      asArray(ranking.groupBy).forEach((s) => r.groupBy(s));
+      asArray(ranking.sortBy).forEach(function(s) {
+        return r.sortBy(s);
+      });
+      asArray(ranking.groupBy).forEach(function(s) {
+        return r.groupBy(s);
+      });
       return r.build(data);
     },
 
-    factory(el, width, height) {
+    factory: function(el, width, height) {
+      const that = this;
+	    console.log('test');
       el.style.width = width;
       el.style.height = height;
       el.style.position = 'relative';
       el.style.overflow = 'auto';
 
 
-      let data = null;
-      let lineup = null;
-      let crossTalk = null;
+      var data = null;
+      var lineup = null;
+      var crossTalk = null;
 
       return {
-        renderValue: (x) => {
+        renderValue: function(x) {
           const rows = HTMLWidgets.dataframeToD3(x.data);
 
           // update data
           if (!data) {
-            data = new LineUpJS.LocalDataProvider(rows, this.toCols(x.colnames, x.cols), {
+            data = new LineUpJS.LocalDataProvider(rows, that.toCols(x.colnames, x.cols), {
               filterGlobally: x.options.filterGlobally,
               multiSelection: !x.options.singleSelection,
               maxGroupColumns: x.options.noCriteriaLimits ? Infinity : 1,
@@ -131,7 +161,9 @@
             });
           } else {
             data.clearColumns();
-            this.toCols(x.colnames, x.cols).forEach((desc) => data.pushDesc(desc));
+            that.toCols(x.colnames, x.cols).forEach(function(desc) {
+              return data.pushDesc(desc);
+            });
             data.setData(rows);
           }
 
@@ -139,13 +171,15 @@
           if (rankings.length === 0 || (rankings.length === 1 && !x.rankings[rankings[0]])) {
             data.deriveDefault();
           } else {
-            rankings.forEach((ranking) => this.pushRanking(data, x.rankings[ranking]));
+            rankings.forEach(function(ranking) {
+              return that.pushRanking(data, x.rankings[ranking])
+            });
           }
 
           // update cross talk
           if (x.crosstalk.group && x.crosstalk.key) {
             if (!crossTalk) {
-              crossTalk = this.crossTalk(data);
+              crossTalk = that.crossTalk(data);
             }
             crossTalk(x.crosstalk.group, x.crosstalk.key);
           }
@@ -153,18 +187,18 @@
           if (lineup) {
             lineup.destroy();
           }
-          const options = Object.assign({}, x.options, {
+          const options = assign({}, x.options, {
             sidePanel: x.options.sidePanel !== false,
             sidePanelCollapsed: x.options.sidePanel === 'collapsed'
           });
-          if (this.name === 'taggle') {
+          if (that.name === 'taggle') {
             lineup = new LineUpJS.Taggle(el, data, options);
           } else {
             lineup = new LineUpJS.LineUp(el, data, options);
           }
         },
 
-        resize(width, height) {
+        resize: function(width, height) {
           el.style.width = width;
           el.style.height = height;
           if (lineup) {
@@ -177,6 +211,6 @@
   };
 
   HTMLWidgets.widget(lineup);
-  HTMLWidgets.widget(Object.assign({}, lineup, {name: 'taggle'}));
+  HTMLWidgets.widget(assign({}, lineup, {name: 'taggle'}));
 })();
 
