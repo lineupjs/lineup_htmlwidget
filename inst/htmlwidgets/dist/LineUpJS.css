@@ -928,7 +928,8 @@ section.lu-header {
       top: 0;
       bottom: 0;
       display: flex;
-      align-items: center; }
+      justify-content: center;
+      flex-direction: column; }
       .lu [data-renderer=number] > div > div,
       .lu [data-renderer=circle] > div > div {
         height: 100%; }
@@ -937,7 +938,8 @@ section.lu-header {
         position: relative; }
   .lu [data-agg=group] [data-renderer$=number] > div > div {
     display: flex;
-    align-items: center; }
+    justify-content: center;
+    flex-direction: column; }
   .lu [data-renderer=stack] [data-renderer$=number] > div {
     overflow-x: hidden;
     text-overflow: ellipsis; }
@@ -1761,7 +1763,8 @@ article.lu-side-panel-entry {
       right: 0; }
   .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=group] {
     visibility: visible !important;
-    overflow: visible !important; }
+    overflow: visible !important;
+    position: relative; }
     .lineup-engine [data-lod=low][data-agg=detail]:not(:hover) [data-renderer=group] > * {
       position: absolute;
       left: 0;
@@ -1873,6 +1876,46 @@ article.lu-side-panel-entry {
     margin-left: 5px;
     color: #ffd700; }
 
+.lu-unsupported-browser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .lu-unsupported-browser > * {
+    margin: 2em; }
+
+.lu-unsupported-browser-hint > a {
+  text-decoration: none !important;
+  position: relative;
+  padding: 0.5em 1em;
+  color: black; }
+  .lu-unsupported-browser-hint > a::before {
+    display: inline-block;
+    font: normal normal normal 14px/1 lu-font, serif;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 200%;
+    transition: font-size 0.25s ease;
+    color: gray; }
+  .lu-unsupported-browser-hint > a:hover::before {
+    font-size: 250%; }
+  .lu-unsupported-browser-hint > a[data-browser=chrome]::before {
+    content: "\F268";
+    color: black; }
+  .lu-unsupported-browser-hint > a[data-browser=firefox]::before {
+    content: "\F269"; }
+  .lu-unsupported-browser-hint > a[data-browser=edge]::before {
+    content: "\F282"; }
+  .lu-unsupported-browser-hint > a::after {
+    content: attr(data-version) "+";
+    position: absolute;
+    top: 100%;
+    text-align: center;
+    left: -1em;
+    right: -1em; }
+
 .lu {
   position: relative; }
   .lu > aside {
@@ -1887,3 +1930,5 @@ article.lu-side-panel-entry {
   .lu::after {
     content: '';
     clear: both; }
+
+/*# sourceMappingURL=LineUpJS.css.map*/
