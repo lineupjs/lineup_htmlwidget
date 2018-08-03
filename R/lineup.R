@@ -27,7 +27,8 @@
       summaryHeader = TRUE,
       overviewMode = FALSE,
       expandLineOnHover = FALSE,
-      defaultSlopeGraphMode = 'item'
+      defaultSlopeGraphMode = 'item',
+      ignoreUnsupportedBrowser = FALSE
     ),
     values = options
   )
@@ -107,6 +108,7 @@
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
 #'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
 #'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
@@ -135,7 +137,8 @@ lineup = function(data,
                     summaryHeader = TRUE,
                     overviewMode = FALSE,
                     expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item'
+                    defaultSlopeGraphMode = 'item',
+                    ignoreUnsupportedBrowser = FALSE
                   ),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
@@ -162,6 +165,7 @@ lineup = function(data,
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
 #'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
 #'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
@@ -190,7 +194,8 @@ taggle = function(data,
                     summaryHeader = TRUE,
                     overviewMode = FALSE,
                     expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item'
+                    defaultSlopeGraphMode = 'item',
+                    ignoreUnsupportedBrowser = FALSE
                   ),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
