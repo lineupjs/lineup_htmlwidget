@@ -136,11 +136,22 @@
 
     factory: function(el, width, height) {
       const that = this;
-	    console.log('test');
       el.style.width = width;
       el.style.height = height;
       el.style.position = 'relative';
       el.style.overflow = 'auto';
+
+      const unsupportedBrowser = !window.LineUpJS || (LineUpJS.isBrowserSupported === 'function' && !LineUpJS.isBrowserSupported());
+
+      if (unsupportedBrowser) {
+        el.classList.add('lu-unsupported-browser');
+        el.innerHTML = '<span>unsupported browser detected</span>' +
+          '<div class="lu-unsupported-browser-hint">' +
+          '<a href="https://www.mozilla.org/en-US/firefox/" rel="noopener" target="_blank" data-browser="firefox" data-version="' + ((window.LineUpJS && LineUpJS.SUPPORTED_FIREFOX_VERSION) || 57) + '"></a>' +
+          '<a href="https://www.google.com/chrome/index.html" rel="noopener" target="_blank" data-browser="chrome" data-version="' + ((window.LineUpJS && LineUpJS.SUPPORTED_CHROME_VERSION) || 64) + '" title="best support"></a>' +
+          '<a href="https://www.microsoft.com/en-us/windows/microsoft-edge" rel="noopener" target="_blank" data-browser="edge" data-version="' + ((window.LineUpJS && LineUpJS.SUPPORTED_EDGE_VERSION) || 16) + '"></a>' +
+          '</div><span>use the <code>ignoreUnsupportedBrowser=true</code> option to ignore this error at your own risk</span>';
+      }
 
 
       var data = null;
@@ -149,6 +160,9 @@
 
       return {
         renderValue: function(x) {
+          if (unsupportedBrowser) {
+            return;
+          }
           const rows = HTMLWidgets.dataframeToD3(x.data);
 
           // update data
