@@ -8,7 +8,8 @@ taggle(data, width = "100\%", height = NULL, elementId = NULL,
   options = list(filterGlobally = TRUE, singleSelection = FALSE,
   noCriteriaLimits = FALSE, animated = TRUE, sidePanel = "collapsed",
   hierarchyIndicator = TRUE, summaryHeader = TRUE, overviewMode = FALSE,
-  expandLineOnHover = FALSE, defaultSlopeGraphMode = "item"), ranking = NULL,
+  expandLineOnHover = FALSE, defaultSlopeGraphMode = "item",
+  ignoreUnsupportedBrowser = FALSE), ranking = NULL,
   dependencies = crosstalk::crosstalkLibs(), ...)
 }
 \arguments{
@@ -32,6 +33,7 @@ taggle(data, width = "100\%", height = NULL, elementId = NULL,
   \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
   \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
   \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+  \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
 }}
 
 \item{ranking}{ranking definition created using \code{\link{lineupRanking}}}

@@ -4,7 +4,8 @@
 \alias{lineupRanking}
 \title{helper function for creating a LineUp ranking definition as used by \code{\link{lineup}}}
 \usage{
-lineupRanking(columns = c("_*", "*"), sortBy = c(), groupBy = c(), ...)
+lineupRanking(columns = c("_*", "*"), sortBy = c(), groupBy = c(),
+  ...)
 }
 \arguments{
 \item{columns}{list of columns shown in this ranking, besides \emph{column names of the given data frame} following special columsn are available

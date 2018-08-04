@@ -1,9 +1,12 @@
 Package: lineupjs
 Type: Package
 Title: 'HTMLWidget' Wrapper of 'LineUp' for Visual Analysis of Multi-Attribute Rankings
-Description: 'LineUp' is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. This is a 'htmlwidget' wrapper around the JavaScript library 'LineUp.js'.
-Version: 3.1.0
-Date: 2018-07-25
+Description: 'LineUp' is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
+  This is a 'htmlwidget' wrapper around the JavaScript library 'LineUp.js'. 
+  It is designed to be used in 'R Shiny' apps and 'R Markddown' files. 
+  Due to an outdated 'webkit' version of 'RStudio' it won't work in the intergrated viewer. 
+Version: 3.1.1
+Date: 2018-08-04
 Authors@R: person("Samuel", "Gratzl", email = "samuel.gratzl@datavisyn.io", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <samuel.gratzl@datavisyn.io>
 URL: https://github.com/datavisyn/lineup_htmlwidget/
@@ -16,4 +19,4 @@ Imports:
   htmltools,
   crosstalk
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

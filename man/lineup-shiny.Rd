@@ -27,6 +27,4 @@ is useful if you want to save an expression in a variable.}
 \description{
 Output and render functions for using lineup within Shiny
 applications and interactive Rmd documents.
-
-Shiny render bindings for lineup
 }
