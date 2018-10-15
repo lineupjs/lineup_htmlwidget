@@ -1,4 +1,4 @@
-/*! lineupjs - v3.1.1 - 2018
+/*! lineupjs - v3.1.5 - 2018
 * https://lineup.js.org
 * Copyright (c) 2018 Samuel Gratzl; Licensed BSD-3-Clause*/
 
@@ -330,24 +330,6 @@
       display: block; }
   .lu-dialog-mapper[data-scale=script] div.lu-script {
     display: block; }
-  .lu-dialog-mapper strong[data-toggle] {
-    margin-top: 1em;
-    cursor: pointer; }
-    .lu-dialog-mapper strong[data-toggle]::before {
-      display: inline-block;
-      font: normal normal normal 14px/1 lu-font, serif;
-      font-size: inherit;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      content: "\E802";
-      width: 0.8em; }
-    .lu-dialog-mapper strong[data-toggle][data-toggle=open]::before {
-      content: "\E801"; }
-  .lu-dialog-mapper .lu-details {
-    display: none; }
-  .lu-dialog-mapper [data-toggle=open] ~ .lu-details {
-    display: block; }
   .lu-dialog-mapper svg {
     shape-rendering: geometricprecision;
     height: 15em; }
@@ -515,6 +497,9 @@
 .lu-action[title^='Color Mapping']::before {
   content: "\F1FC"; }
 
+.lu-action[title^='Data Mapping']::before {
+  content: "\F1DE"; }
+
 .lu-action[title^='Edit Pattern']::before {
   content: "\F08E"; }
 
@@ -535,13 +520,13 @@
   transform: rotate(-90deg);
   height: 14px; }
 
-.lu-action[title='Sort']::before {
+.lu-action[title='Sort']::before, .lu-action[title='Sort Group']::before {
   content: "\F160"; }
 
-.lu-action[title='Sort'][data-sort='desc']::before {
+.lu-action[title='Sort'][data-sort='desc']::before, .lu-action[title='Sort Group'][data-sort='desc']::before {
   content: "\F161"; }
 
-.lu-action[title='Sort'][data-sort$='sc']::before, .lu-action[title^='Group'][data-group='true']::before {
+.lu-action[title='Sort'][data-sort$='sc']::before, .lu-action[title='Sort Group'][data-sort$='sc']::before, .lu-action[title^='Group'][data-group='true']::before {
   color: #ffa500; }
 
 .lu-action[title^='Set Cut Off']::before {
@@ -589,13 +574,13 @@
 .lu [data-col-id] {
   /* Override alphabetical sort icons */
   /* Override numerical sort icons */ }
-  .lu [data-col-id][data-type='string'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort']::before {
+  .lu [data-col-id][data-type='string'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='string'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort Group']::before {
     content: "\F15D"; }
-  .lu [data-col-id][data-type='string'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort'][data-sort='desc']::before {
+  .lu [data-col-id][data-type='string'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='string'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='categorical'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='link'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='annotate'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='hierarchy'] .lu-action[title='Sort Group'][data-sort='desc']::before {
     content: "\F15E"; }
-  .lu [data-col-id][data-type='rank'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort']::before {
+  .lu [data-col-id][data-type='rank'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='rank'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort Group']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort Group']::before {
     content: "\F162"; }
-  .lu [data-col-id][data-type='rank'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort'][data-sort='desc']::before {
+  .lu [data-col-id][data-type='rank'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='rank'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='number'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='numbers'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='ordinal'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='boxplot'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='script'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='reduce'] .lu-action[title='Sort Group'][data-sort='desc']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort'][data-sort='desc']::before, .lu [data-col-id][data-type='stack'] .lu-action[title='Sort Group'][data-sort='desc']::before {
     content: "\F163"; }
 
 .lu-more-options {
@@ -762,6 +747,18 @@
   .lineup-engine.lineup-engine-striped > main > article:not(.odd) > div:nth-child(even) > .frozen,
   .lineup-engine.lineup-engine-striped > main > article.odd > div:nth-child(odd) > .frozen {
     background-color: #f7f7f7; }
+
+.lineup-engine-scrollbar-tester {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+  overflow: auto;
+  width: 100px;
+  height: 100px; }
+  .lineup-engine-scrollbar-tester > div {
+    width: 200px;
+    height: 200px;
+    overflow: auto; }
 
 .lineup-engine > header .lu-header,
 .lineup-engine .lu-row > * {
@@ -1635,14 +1632,16 @@ article.lu-side-panel-entry {
     .lu-hierarchy > section > div:first-of-type i[title="Move Up"],
     .lu-hierarchy > section > div:last-of-type i[title="Move Down"] {
       visibility: hidden; }
-  .lu-hierarchy > section:first-of-type::before {
+  .lu-hierarchy > section.lu-hierarchy-group::before {
     content: 'Grouping hierarchy'; }
-  .lu-hierarchy > section:first-of-type i[title=Group] {
+  .lu-hierarchy > section.lu-hierarchy-group i[title=Group] {
     pointer-events: none; }
   .lu-hierarchy > section:empty + hr {
     display: none; }
-  .lu-hierarchy > section:last-of-type::before {
+  .lu-hierarchy > section.lu-hierarchy-sort::before {
     content: 'Sorting hierarchy'; }
+  .lu-hierarchy > section.lu-hierarchy-sortgroup::before {
+    content: 'Group Sorting hierarchy'; }
   .lu-hierarchy .lu-search input {
     font-size: x-small; }
   .lu-hierarchy ul {
