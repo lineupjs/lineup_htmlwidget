@@ -52,7 +52,7 @@
     if (clazz == 'numeric') {
       list(type = 'number',
            column = colname,
-           domain = c(min(col), max(col)))
+           domain = c(min(col, na.rm = TRUE), max(col, na.rm = TRUE)))
     } else if (clazz == 'factor') {
       list(type = 'categorical',
            column = colname,
