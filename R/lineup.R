@@ -16,22 +16,21 @@
                   lineupType,
                   ...) {
   # merge with defaults
-  options = replace(
-    list(
-      filterGlobally = TRUE,
-      singleSelection = FALSE,
-      noCriteriaLimits = FALSE,
-      animated = TRUE,
-      sidePanel = 'collapsed',
-      hierarchyIndicator = TRUE,
-      summaryHeader = TRUE,
-      overviewMode = FALSE,
-      expandLineOnHover = FALSE,
-      defaultSlopeGraphMode = 'item',
-      ignoreUnsupportedBrowser = FALSE
-    ),
-    values = options
+  default_options = list(
+    filterGlobally = TRUE,
+    singleSelection = FALSE,
+    noCriteriaLimits = FALSE,
+    animated = TRUE,
+    sidePanel = 'collapsed',
+    hierarchyIndicator = TRUE,
+    summaryHeader = TRUE,
+    overviewMode = FALSE,
+    expandLineOnHover = FALSE,
+    defaultSlopeGraphMode = 'item',
+    ignoreUnsupportedBrowser = FALSE
   )
+  # extend with all the default options
+  options = c(options, default_options[!(names(default_options) %in% names(options))])
 
   if (crosstalk::is.SharedData(data)) {
     # using Crosstalk
@@ -53,7 +52,7 @@
     if (clazz == 'numeric') {
       list(type = 'number',
            column = colname,
-           domain = c(min(col), max(col)))
+           domain = c(min(col, na.rm = TRUE), max(col, na.rm = TRUE)))
     } else if (clazz == 'factor') {
       list(type = 'categorical',
            column = colname,
