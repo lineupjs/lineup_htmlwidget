@@ -5,6 +5,24 @@
 #'
 
 
+.lineupDefaultOptions = list(
+  filterGlobally = TRUE,
+  singleSelection = FALSE,
+  noCriteriaLimits = FALSE,
+  animated = TRUE,
+  sidePanel = 'collapsed',
+  hierarchyIndicator = TRUE,
+  labelRotation = 0,
+  rowHeight = 18,
+  rowPadding = 2,
+  groupHeight = 40,
+  groupPadding = 5,
+  summaryHeader = TRUE,
+  overviewMode = FALSE,
+  expandLineOnHover = FALSE,
+  defaultSlopeGraphMode = 'item',
+  ignoreUnsupportedBrowser = FALSE
+)
 
 .lineupImpl = function(data,
                   width,
@@ -15,22 +33,8 @@
                   dependencies,
                   lineupType,
                   ...) {
-  # merge with defaults
-  default_options = list(
-    filterGlobally = TRUE,
-    singleSelection = FALSE,
-    noCriteriaLimits = FALSE,
-    animated = TRUE,
-    sidePanel = 'collapsed',
-    hierarchyIndicator = TRUE,
-    summaryHeader = TRUE,
-    overviewMode = FALSE,
-    expandLineOnHover = FALSE,
-    defaultSlopeGraphMode = 'item',
-    ignoreUnsupportedBrowser = FALSE
-  )
   # extend with all the default options
-  options = c(options, default_options[!(names(default_options) %in% names(options))])
+  options = c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
   if (crosstalk::is.SharedData(data)) {
     # using Crosstalk
@@ -103,11 +107,16 @@
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
+#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
 #'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
 #'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
 #'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
+#'    \item{rowHeight}{height of a row in pixel (default: 18)}
+#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
+#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
+#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
@@ -126,19 +135,7 @@ lineup = function(data,
                   width = '100%',
                   height = NULL,
                   elementId = NULL,
-                  options = list(
-                    filterGlobally = TRUE,
-                    singleSelection = FALSE,
-                    noCriteriaLimits = FALSE,
-                    animated = TRUE,
-                    sidePanel = 'collapsed',
-                    hierarchyIndicator = TRUE,
-                    summaryHeader = TRUE,
-                    overviewMode = FALSE,
-                    expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item',
-                    ignoreUnsupportedBrowser = FALSE
-                  ),
+                  options = c(.lineupDefaultOptions),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
@@ -160,11 +157,16 @@ lineup = function(data,
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
+#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
 #'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
 #'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
 #'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
 #'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
 #'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
+#'    \item{rowHeight}{height of a row in pixel (default: 18)}
+#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
+#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
+#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
@@ -183,19 +185,7 @@ taggle = function(data,
                   width = '100%',
                   height = NULL,
                   elementId = NULL,
-                  options = list(
-                    filterGlobally = TRUE,
-                    singleSelection = FALSE,
-                    noCriteriaLimits = FALSE,
-                    animated = TRUE,
-                    sidePanel = 'collapsed',
-                    hierarchyIndicator = TRUE,
-                    summaryHeader = TRUE,
-                    overviewMode = FALSE,
-                    expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item',
-                    ignoreUnsupportedBrowser = FALSE
-                  ),
+                  options = c(.lineupDefaultOptions),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
