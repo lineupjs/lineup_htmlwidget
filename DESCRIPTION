@@ -6,7 +6,7 @@ Description: 'LineUp' is an interactive technique designed to create, visualize 
   It is designed to be used in 'R Shiny' apps and 'R Markddown' files.
   Due to an outdated 'webkit' version of 'RStudio' it won't work in the intergrated viewer.
 Version: 3.1.7
-Date: 2018-08-04
+Date: 2018-11-08
 Authors@R: person("Samuel", "Gratzl", email = "sam@sgratzl.com", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <sam@sgratzl.com>
 URL: https://github.com/datavisyn/lineup_htmlwidget/
