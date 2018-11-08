@@ -1,4 +1,4 @@
-/*! lineupjs - v3.1.5 - 2018
+/*! lineupjs - v3.1.7 - 2018
 * https://lineup.js.org
 * Copyright (c) 2018 Samuel Gratzl; Licensed BSD-3-Clause*/
 
@@ -342,7 +342,7 @@
       stroke-linejoin: round;
       stroke-linecap: round; }
     .lu-dialog-mapper svg line:not([x1]) {
-      stroke-width: 1.25; }
+      stroke-width: 1.5; }
     .lu-dialog-mapper svg line[data-v] {
       stroke-opacity: 0.5;
       stroke-width: 0.5;
@@ -1180,38 +1180,41 @@ section.lu-header {
     .lu .lu-summary[data-renderer=interleaving].lu-dense > div,
     .lu [data-renderer=histogram].lu-dense > div {
       margin: 0; }
-    .lu [data-agg=group] [data-renderer=categorical] > span,
-    .lu .lu-summary[data-renderer=categorical] > span,
-    .lu .lu-summary[data-renderer=interleaving] > span,
-    .lu [data-renderer=histogram] > span {
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      position: absolute;
-      bottom: -15px;
-      pointer-events: none;
-      line-height: 100%;
-      /*
+  .lu [data-agg=group] [data-renderer=categorical] > span,
+  .lu .lu-summary[data-renderer=categorical] > span,
+  .lu .lu-summary[data-renderer=interleaving] > span,
+  .lu .lu-summary[data-renderer=boxplot] > span,
+  .lu [data-renderer=histogram] > span {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+    bottom: -15px;
+    pointer-events: none;
+    line-height: 100%;
+    /*
      * create axis tick as background image and position it left or right
      */
-      background-image: linear-gradient(to bottom, #000 3px, transparent);
-      background-repeat: no-repeat;
-      background-size: 1px 3px;
-      padding-top: 5px; }
-      .lu [data-agg=group] [data-renderer=categorical] > span:first-of-type,
-      .lu .lu-summary[data-renderer=categorical] > span:first-of-type,
-      .lu .lu-summary[data-renderer=interleaving] > span:first-of-type,
-      .lu [data-renderer=histogram] > span:first-of-type {
-        left: 0;
-        background-position: left top; }
-      .lu [data-agg=group] [data-renderer=categorical] > span:last-of-type,
-      .lu .lu-summary[data-renderer=categorical] > span:last-of-type,
-      .lu .lu-summary[data-renderer=interleaving] > span:last-of-type,
-      .lu [data-renderer=histogram] > span:last-of-type {
-        right: 0;
-        text-align: right;
-        background-position: right top; }
+    background-image: linear-gradient(to bottom, #000 3px, transparent);
+    background-repeat: no-repeat;
+    background-size: 1px 3px;
+    padding-top: 5px; }
+    .lu [data-agg=group] [data-renderer=categorical] > span:first-of-type,
+    .lu .lu-summary[data-renderer=categorical] > span:first-of-type,
+    .lu .lu-summary[data-renderer=interleaving] > span:first-of-type,
+    .lu .lu-summary[data-renderer=boxplot] > span:first-of-type,
+    .lu [data-renderer=histogram] > span:first-of-type {
+      left: 0;
+      background-position: left top; }
+    .lu [data-agg=group] [data-renderer=categorical] > span:last-of-type,
+    .lu .lu-summary[data-renderer=categorical] > span:last-of-type,
+    .lu .lu-summary[data-renderer=interleaving] > span:last-of-type,
+    .lu .lu-summary[data-renderer=boxplot] > span:last-of-type,
+    .lu [data-renderer=histogram] > span:last-of-type {
+      right: 0;
+      text-align: right;
+      background-position: right top; }
   .lu [data-renderer=categorical]:not(.lu-dense) > div[data-title]::before,
   .lu [data-renderer=histogram]:not(.lu-dense) > div[data-title]::before,
   .lu [data-renderer=interleaving]:not(.lu-dense) > div[data-title]::before,
@@ -1346,6 +1349,12 @@ section.lu-header {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal; }
+  .lu .lu-right {
+    justify-content: flex-end;
+    text-align: right; }
+  .lu .lu-center {
+    justify-content: center;
+    text-align: left; }
   .lu [data-renderer=table],
   .lu [data-renderer=map],
   .lu [data-renderer=mapbars] {
@@ -1499,12 +1508,22 @@ section.lu-slopegraph-header {
         transform: scale(-1, 1); }
 
 .lu-search {
-  position: relative; }
-  .lu-search > input {
-    width: 100%;
+  position: relative;
+  display: flex; }
+  .lu-search::before {
+    content: '+';
+    border-radius: 4px 0 0 4px;
+    width: 1.2em;
+    text-align: center;
     border: 1px solid #999;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-right: none; }
+  .lu-search > input {
+    flex: 1 1 0;
+    height: 22px;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
     padding: 3px 5px;
     outline: none; }
   .lu-search > ul {
@@ -1512,6 +1531,8 @@ section.lu-slopegraph-header {
     position: absolute;
     overflow: auto;
     z-index: 1000;
+    left: 1.2em;
+    top: 22px;
     max-height: 0;
     background: white;
     text-align: left;
@@ -1519,6 +1540,7 @@ section.lu-slopegraph-header {
     margin-top: -1px;
     transition: all linear 0.5s;
     list-style: none;
+    box-sizing: border-box;
     border: 1px solid #999;
     border-radius: 0 0 3px 3px; }
     .lu-search > ul.lu-search-empty::before {
@@ -1642,8 +1664,11 @@ article.lu-side-panel-entry {
     content: 'Sorting hierarchy'; }
   .lu-hierarchy > section.lu-hierarchy-sortgroup::before {
     content: 'Group Sorting hierarchy'; }
-  .lu-hierarchy .lu-search input {
+  .lu-hierarchy .lu-search > input {
+    height: 19px;
     font-size: x-small; }
+  .lu-hierarchy .lu-search > ul {
+    top: 19px; }
   .lu-hierarchy ul {
     color: black;
     background: white; }
