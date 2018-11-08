@@ -5,6 +5,19 @@
 #'
 
 
+.lineupDefaultOptions = list(
+  filterGlobally = TRUE,
+  singleSelection = FALSE,
+  noCriteriaLimits = FALSE,
+  animated = TRUE,
+  sidePanel = 'collapsed',
+  hierarchyIndicator = TRUE,
+  summaryHeader = TRUE,
+  overviewMode = FALSE,
+  expandLineOnHover = FALSE,
+  defaultSlopeGraphMode = 'item',
+  ignoreUnsupportedBrowser = FALSE
+)
 
 .lineupImpl = function(data,
                   width,
@@ -15,22 +28,8 @@
                   dependencies,
                   lineupType,
                   ...) {
-  # merge with defaults
-  default_options = list(
-    filterGlobally = TRUE,
-    singleSelection = FALSE,
-    noCriteriaLimits = FALSE,
-    animated = TRUE,
-    sidePanel = 'collapsed',
-    hierarchyIndicator = TRUE,
-    summaryHeader = TRUE,
-    overviewMode = FALSE,
-    expandLineOnHover = FALSE,
-    defaultSlopeGraphMode = 'item',
-    ignoreUnsupportedBrowser = FALSE
-  )
   # extend with all the default options
-  options = c(options, default_options[!(names(default_options) %in% names(options))])
+  options = c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
   if (crosstalk::is.SharedData(data)) {
     # using Crosstalk
@@ -126,19 +125,7 @@ lineup = function(data,
                   width = '100%',
                   height = NULL,
                   elementId = NULL,
-                  options = list(
-                    filterGlobally = TRUE,
-                    singleSelection = FALSE,
-                    noCriteriaLimits = FALSE,
-                    animated = TRUE,
-                    sidePanel = 'collapsed',
-                    hierarchyIndicator = TRUE,
-                    summaryHeader = TRUE,
-                    overviewMode = FALSE,
-                    expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item',
-                    ignoreUnsupportedBrowser = FALSE
-                  ),
+                  options = c(.lineupDefaultOptions),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
@@ -183,19 +170,7 @@ taggle = function(data,
                   width = '100%',
                   height = NULL,
                   elementId = NULL,
-                  options = list(
-                    filterGlobally = TRUE,
-                    singleSelection = FALSE,
-                    noCriteriaLimits = FALSE,
-                    animated = TRUE,
-                    sidePanel = 'collapsed',
-                    hierarchyIndicator = TRUE,
-                    summaryHeader = TRUE,
-                    overviewMode = FALSE,
-                    expandLineOnHover = FALSE,
-                    defaultSlopeGraphMode = 'item',
-                    ignoreUnsupportedBrowser = FALSE
-                  ),
+                  options = c(.lineupDefaultOptions),
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
