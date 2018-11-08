@@ -31,12 +31,22 @@ lineup(iris)
 
 ![iris output](https://user-images.githubusercontent.com/4129778/34919941-fec50232-f96a-11e7-95be-9eefb213e3d6.png)
 
+Advanced Example
+----------------
+
+```R
+lineup(iris)
+```
+
+![iris output](https://user-images.githubusercontent.com/4129778/34919941-fec50232-f96a-11e7-95be-9eefb213e3d6.png)
+
 Crosstalk Example
 -------------
 
 ```R
 devtools::install_github("jcheng5/d3scatter")
 library(d3scatter)
+library(crosstalk)
 
 shared_iris = SharedData$new(iris)
 
