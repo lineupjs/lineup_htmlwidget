@@ -106,7 +106,12 @@
 
     toCols: function(names, descs) {
       const cols = names.map(function(d) {
-        return descs[d];
+        const desc = descs[d];
+        // R Shiny transform 1 element arrays to primitive values
+        if (desc.type === 'categorical' && typeof desc.categories === 'string') {
+          desc.categories = [desc.categories];
+        }
+        return desc;
       });
       LineUpJS.deriveColors(cols);
       return cols;
