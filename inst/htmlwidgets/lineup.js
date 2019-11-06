@@ -145,6 +145,7 @@
       el.style.height = height;
       el.style.position = 'relative';
       el.style.overflow = 'auto';
+      el.style.lineHeight = 'normal'; // for bootstrap
 
       const unsupportedBrowser = !window.LineUpJS || (LineUpJS.isBrowserSupported === 'function' && !LineUpJS.isBrowserSupported());
 
