@@ -1,20 +1,20 @@
 LineUp.js as HTMLWidget
 =======================
 
-[![License: MIT][mit-image]][mit-url] [![CircleCI][ci-image]][ci-url] [![CircleCI][ci-image-dev]][ci-url-dev] 
+[![License: MIT][mit-image]][mit-url] [![CircleCI][ci-image]][ci-url] [![CircleCI][ci-image-dev]][ci-url-dev]
 
-LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes. 
-This is a [HTMLWidget](http://www.htmlwidgets.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/lineupjs/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org). 
+LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.
+This is a [HTMLWidget](http://www.htmlwidgets.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/lineupjs/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org).
 
 It can be used within standalone [R Shiny](https://shiny.rstudio.com/) apps or [R Markdown](http://rmarkdown.rstudio.com/) files. **Integrated plotting does not work due to an outdated integrated Webkit version in RStudio**.
-[Crosstalk](https://rstudio.github.io/crosstalk/) is supported for synching selections and filtering among widgets. 
+[Crosstalk](https://rstudio.github.io/crosstalk/) is supported for synching selections and filtering among widgets.
 
 Installation
 ------------
 
 ```R
 devtools::install_github("rstudio/crosstalk")
-devtools::install_github("datavisyn/lineup_htmlwidget")
+devtools::install_github("lineupjs/lineup_htmlwidget")
 library(lineupjs)
 ```
 
@@ -36,9 +36,9 @@ Advanced Example
 ----------------
 
 ```R
-lineup(iris, 
-  ranking=lineupRanking(columns=c('_*', '*', 'impose'), 
-                        sortBy=c('Sepal_Length:desc'), groupBy=c('Species'), 
+lineup(iris,
+  ranking=lineupRanking(columns=c('_*', '*', 'impose'),
+                        sortBy=c('Sepal_Length:desc'), groupBy=c('Species'),
                         impose=list(type='impose', column='Sepal_Length', categoricalColumn='Species')))
 ```
 
