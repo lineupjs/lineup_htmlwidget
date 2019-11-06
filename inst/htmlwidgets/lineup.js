@@ -191,7 +191,7 @@
             data.deriveDefault();
           } else {
             rankings.forEach(function(ranking) {
-              return that.pushRanking(data, x.rankings[ranking])
+              return that.pushRanking(data, x.rankings[ranking]);
             });
           }
 
