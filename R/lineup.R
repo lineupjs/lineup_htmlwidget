@@ -23,15 +23,43 @@
   defaultSlopeGraphMode = 'item',
   ignoreUnsupportedBrowser = FALSE
 )
-
-.lineupImpl = function(data,
-                  width,
-                  height,
-                  elementId,
-                  options,
-                  ranking,
-                  dependencies,
-                  lineupType,
+#' taggle - factory for Taggle HTMLWidget
+#'
+#' @param data data frame like object i.e. also crosstalk shared data frame
+#' @param options LineUp options
+#'  \describe{
+#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
+#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
+#'    \item{animated}{use animated transitions (default: TRUE)}
+#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
+#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
+#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
+#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
+#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
+#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
+#'    \item{rowHeight}{height of a row in pixel (default: 18)}
+#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
+#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
+#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
+#'  }
+#' @param ranking ranking definition created using \code{\link{lineupRanking}}
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#'
+#' @return lineup builder objects
+#'
+#' @examples
+#' \dontrun{
+#' taggle(mtcars)
+#' taggle(iris)
+#' }
+#'
+#' @export
+lineupBuilder = function(data,
+                  options = c(.lineupDefaultOptions),
+                  ranking = NULL,
                   ...) {
   # extend with all the default options
   options = c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
@@ -73,14 +101,17 @@
   cols[['rowname']] = list(type = 'string', column = 'rowname', frozen = TRUE)
 
   # forward options using x
-  x = list(
+  structure(list(
     data = cbind(rowname = rownames(data), data),
     colnames = c('rowname', colnames(data)),
     cols = cols,
     crosstalk = list(key = key, group = group),
     options = options,
     rankings = list(ranking = ranking, ...)
-  )
+  ), class='LineUpBuilder')
+}
+
+.buildLineUpWidget = function(x, width, height, elementId, dependencies, lineupType) {
   # create widget
   htmlwidgets::createWidget(
     name = lineupType,
@@ -92,6 +123,43 @@
     dependencies = dependencies
   )
 }
+
+#' lineup - factory for LineUp HTMLWidget
+#'
+#' @param x LineUpBuilder object
+#' @param width width of the element
+#' @param height height of the element
+#' @param elementId unique element id
+#' @param dependencies include crosstalk dependencies
+#'
+#' @return html lineup widget
+#'
+#' @export
+buildLineUp = function(x, width = '100%',
+                  height = NULL,
+                  elementId = NULL,
+                  dependencies = crosstalk::crosstalkLibs()) {
+  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType='lineup')
+}
+
+#' taggle - factory for Taggle HTMLWidget
+#'
+#' @param x LineUpBuilder object
+#' @param width width of the element
+#' @param height height of the element
+#' @param elementId unique element id
+#' @param dependencies include crosstalk dependencies
+#'
+#' @return html taggle widget
+
+#' @export
+buildTaggle = function(x, width = '100%',
+                  height = NULL,
+                  elementId = NULL,
+                  dependencies = crosstalk::crosstalkLibs()) {
+  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType='taggle')
+}
+
 
 #' lineup - factory for LineUp HTMLWidget
 #'
@@ -139,7 +207,8 @@ lineup = function(data,
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
-  .lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='lineup', ...)
+  x = lineupBuilder(data, options, ranking, ...)
+  buildLineUp(x, width, height, elementId, dependencies)
 }
 
 
@@ -189,7 +258,8 @@ taggle = function(data,
                   ranking = NULL,
                   dependencies = crosstalk::crosstalkLibs(),
                   ...) {
-  .lineupImpl(data, width, height, elementId, options, ranking, dependencies, lineupType='taggle', ...)
+  x = lineupBuilder(data, options, ranking, ...)
+  buildTaggle(x, width, height, elementId, dependencies)
 }
 
 #' helper function for creating a LineUp ranking definition as used by \code{\link{lineup}}
