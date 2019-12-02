@@ -45,6 +45,19 @@ lineup(iris,
 ![iris advanced output](https://user-images.githubusercontent.com/4129778/48187839-898c0d00-e33c-11e8-9d4a-360bc35741f4.png)
 
 
+Builder Pattern
+---------------
+
+```R
+library(magrittr)
+
+lineupBuilder(iris) %>%
+buildLineUp()
+```
+
+lineupBuilder(shared_iris) %>% buildLineUp(width = "100%")
+
+
 Crosstalk Example
 -------------
 

@@ -10,14 +10,13 @@
 library(shiny)
 library(crosstalk)
 library(lineupjs)
-library(d3scatter)
+library(magrittr)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   titlePanel("LineUp Shiny Example"),
 
   fluidRow(
-    column(5, d3scatterOutput("scatter1")),
     column(7, lineupOutput("lineup1"))
   )
 )
@@ -26,12 +25,10 @@ ui <- fluidPage(
 server <- function(input, output) {
   shared_iris <- SharedData$new(iris)
 
-  output$scatter1 <- renderD3scatter({
-    d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width = "100%")
-  })
 
   output$lineup1 <- renderLineup({
-    lineup(shared_iris, width = "100%")
+    # lineupBuilder(shared_iris) %>% buildLineUp(width = "100%")
+    lineup(shared_iris, width='100%')
   })
 }
 
