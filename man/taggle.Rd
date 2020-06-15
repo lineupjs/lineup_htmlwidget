@@ -4,9 +4,16 @@
 \alias{taggle}
 \title{taggle - factory for Taggle HTMLWidget}
 \usage{
-taggle(data, width = "100\%", height = NULL, elementId = NULL,
-  options = c(.lineupDefaultOptions), ranking = NULL,
-  dependencies = crosstalk::crosstalkLibs(), ...)
+taggle(
+  data,
+  width = "100\%",
+  height = NULL,
+  elementId = NULL,
+  options = c(.lineupDefaultOptions),
+  ranking = NULL,
+  dependencies = crosstalk::crosstalkLibs(),
+  ...
+)
 }
 \arguments{
 \item{data}{data frame like object i.e. also crosstalk shared data frame}

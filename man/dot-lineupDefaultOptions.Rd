@@ -4,7 +4,7 @@
 \name{.lineupDefaultOptions}
 \alias{.lineupDefaultOptions}
 \title{LineUpjs module}
-\format{An object of class \code{list} of length 16.}
+\format{An object of class \code{list} of length 15.}
 \usage{
 .lineupDefaultOptions
 }

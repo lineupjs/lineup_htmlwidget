@@ -4,8 +4,13 @@
 \alias{buildTaggle}
 \title{taggle - factory for Taggle HTMLWidget}
 \usage{
-buildTaggle(x, width = "100\%", height = NULL, elementId = NULL,
-  dependencies = crosstalk::crosstalkLibs())
+buildTaggle(
+  x,
+  width = "100\%",
+  height = NULL,
+  elementId = NULL,
+  dependencies = crosstalk::crosstalkLibs()
+)
 }
 \arguments{
 \item{x}{LineUpBuilder object}

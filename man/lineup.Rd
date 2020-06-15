@@ -4,9 +4,16 @@
 \alias{lineup}
 \title{lineup - factory for LineUp HTMLWidget}
 \usage{
-lineup(data, width = "100\%", height = NULL, elementId = NULL,
-  options = c(.lineupDefaultOptions), ranking = NULL,
-  dependencies = crosstalk::crosstalkLibs(), ...)
+lineup(
+  data,
+  width = "100\%",
+  height = NULL,
+  elementId = NULL,
+  options = c(.lineupDefaultOptions),
+  ranking = NULL,
+  dependencies = crosstalk::crosstalkLibs(),
+  ...
+)
 }
 \arguments{
 \item{data}{data frame like object i.e. also crosstalk shared data frame}
@@ -21,7 +28,6 @@ lineup(data, width = "100\%", height = NULL, elementId = NULL,
 \describe{
   \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
   \item{singleSelection}{restrict to single item selection (default: FALSE}
-  \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
   \item{animated}{use animated transitions (default: TRUE)}
   \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
   \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}

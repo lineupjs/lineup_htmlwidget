@@ -4,8 +4,13 @@
 \alias{buildLineUp}
 \title{lineup - factory for LineUp HTMLWidget}
 \usage{
-buildLineUp(x, width = "100\%", height = NULL, elementId = NULL,
-  dependencies = crosstalk::crosstalkLibs())
+buildLineUp(
+  x,
+  width = "100\%",
+  height = NULL,
+  elementId = NULL,
+  dependencies = crosstalk::crosstalkLibs()
+)
 }
 \arguments{
 \item{x}{LineUpBuilder object}

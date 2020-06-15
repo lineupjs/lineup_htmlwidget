@@ -4,8 +4,7 @@
 \alias{lineupBuilder}
 \title{taggle - factory for Taggle HTMLWidget}
 \usage{
-lineupBuilder(data, options = c(.lineupDefaultOptions), ranking = NULL,
-  ...)
+lineupBuilder(data, options = c(.lineupDefaultOptions), ranking = NULL, ...)
 }
 \arguments{
 \item{data}{data frame like object i.e. also crosstalk shared data frame}
@@ -14,7 +13,6 @@ lineupBuilder(data, options = c(.lineupDefaultOptions), ranking = NULL,
 \describe{
   \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
   \item{singleSelection}{restrict to single item selection (default: FALSE}
-  \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
   \item{animated}{use animated transitions (default: TRUE)}
   \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
   \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
