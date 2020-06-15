@@ -176,8 +176,6 @@
             data = new LineUpJS.LocalDataProvider(rows, that.toCols(x.colnames, x.cols), {
               filterGlobally: x.options.filterGlobally,
               multiSelection: !x.options.singleSelection,
-              maxGroupColumns: x.options.noCriteriaLimits ? Infinity : 1,
-              maxNestedSortingCriteria: x.options.noCriteriaLimits ? Infinity : 1
             });
           } else {
             data.clearColumns();

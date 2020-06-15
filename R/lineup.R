@@ -8,7 +8,6 @@
 .lineupDefaultOptions = list(
   filterGlobally = TRUE,
   singleSelection = FALSE,
-  noCriteriaLimits = FALSE,
   animated = TRUE,
   sidePanel = 'collapsed',
   hierarchyIndicator = TRUE,
@@ -30,7 +29,6 @@
 #'  \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
@@ -171,7 +169,6 @@ buildTaggle = function(x, width = '100%',
 #'  \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
