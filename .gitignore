@@ -2,3 +2,4 @@
 .Rhistory
 .RData
 examples/*.html
+node_modules
