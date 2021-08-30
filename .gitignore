@@ -1,5 +1,10 @@
+node_modules
 .Rproj.user
 .Rhistory
 .RData
-examples/*.html
-node_modules
+.Ruserdata
+docs
+inst/htmlwidgets/dist
+/man
+/NAMESPACE
+/check

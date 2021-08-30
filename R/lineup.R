@@ -1,10 +1,4 @@
 
-#' LineUpjs module
-#'
-#' a htmlwidget wrapper around LineUpJS (\url{https://lineup.js.org})
-#'
-
-
 .lineupDefaultOptions = list(
   filterGlobally = TRUE,
   singleSelection = FALSE,

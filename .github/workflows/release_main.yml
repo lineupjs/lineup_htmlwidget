@@ -1,0 +1,71 @@
+name: Release Main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  correct_repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail on fork
+        if: github.repository_owner != 'lineupjs'
+        run: exit 1
+
+  create_release:
+    needs: correct_repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Extract version
+        id: extract_version
+        run: |
+          python -m pip install bump2version
+          echo -n "::set-output name=version::"
+          bump2version --dry-run --list patch | grep ^current_version | sed -r s,"^.*=",,
+      - name: Print version
+        run: |
+          echo "releasing ${{ steps.extract_version.outputs.version }} with tag ${{ steps.extract_version.outputs.npm_tag }}"
+      - name: Create Release
+        id: create_release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_GITHUB_TOKEN }}
+        with:
+          name: v${{ steps.extract_version.outputs.version }}
+          tag: v${{ steps.extract_version.outputs.version }}
+          version: ${{ steps.extract_version.outputs.version }}
+          prerelease: ${{ needs.extract_version.outputs.tag_name == 'next' }}
+          publish: true
+    outputs:
+      version: ${{ steps.extract_version.outputs.version }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      tag_name: ${{ steps.create_release.outputs.tag_name }}
+
+  release_package:
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      # TODO
+
+  sync_dev:
+    needs: correct_repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          ref: dev
+          ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
+      - name: Reset dev branch
+        run: |
+          git fetch origin main:main
+          git merge main
+          git push

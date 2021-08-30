@@ -5,18 +5,25 @@ Description: 'LineUp' is an interactive technique designed to create, visualize 
   This is a 'htmlwidget' wrapper around the JavaScript library 'LineUp.js'.
   It is designed to be used in 'R Shiny' apps and 'R Markddown' files.
   Due to an outdated 'webkit' version of 'RStudio' it won't work in the intergrated viewer.
-Version: 4.0.0
-Date: 2020-06-15
+Version: 4.3.0
+Date: 2021-08-30
 Authors@R: person("Samuel", "Gratzl", email = "sam@sgratzl.com", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <sam@sgratzl.com>
 URL: https://github.com/lineupjs/lineup_htmlwidget/
 BugReports: https://github.com/lineupjs/lineup_htmlwidget/issues
-Depends: R (>= 3.2.0)
+Depends: R (>= 3.5.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
 Imports:
   htmlwidgets,
   htmltools,
   crosstalk
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Language: en-US
