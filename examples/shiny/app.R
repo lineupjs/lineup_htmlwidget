@@ -15,7 +15,6 @@ library(magrittr)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   titlePanel("LineUp Shiny Example"),
-
   fluidRow(
     column(7, lineupOutput("lineup1"))
   )
@@ -28,10 +27,9 @@ server <- function(input, output) {
 
   output$lineup1 <- renderLineup({
     # lineupBuilder(shared_iris) %>% buildLineUp(width = "100%")
-    lineup(shared_iris, width='100%')
+    lineup(shared_iris, width = "100%")
   })
 }
 
 # Run the application
 shinyApp(ui = ui, server = server)
-

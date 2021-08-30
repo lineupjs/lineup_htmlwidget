@@ -1,9 +1,9 @@
 
-.lineupDefaultOptions = list(
+.lineupDefaultOptions <- list(
   filterGlobally = TRUE,
   singleSelection = FALSE,
   animated = TRUE,
-  sidePanel = 'collapsed',
+  sidePanel = "collapsed",
   hierarchyIndicator = TRUE,
   labelRotation = 0,
   rowHeight = 18,
@@ -13,7 +13,7 @@
   summaryHeader = TRUE,
   overviewMode = FALSE,
   expandLineOnHover = FALSE,
-  defaultSlopeGraphMode = 'item',
+  defaultSlopeGraphMode = "item",
   ignoreUnsupportedBrowser = FALSE
 )
 #' taggle - factory for Taggle HTMLWidget
@@ -49,68 +49,71 @@
 #' }
 #'
 #' @export
-lineupBuilder = function(data,
-                  options = c(.lineupDefaultOptions),
-                  ranking = NULL,
-                  ...) {
+lineupBuilder <- function(data,
+                          options = c(.lineupDefaultOptions),
+                          ranking = NULL,
+                          ...) {
   # extend with all the default options
-  options = c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
+  options <- c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
   if (crosstalk::is.SharedData(data)) {
     # using Crosstalk
-    key = data$key()
-    group = data$groupName()
-    data = data$origData()
+    key <- data$key()
+    group <- data$groupName()
+    data <- data$origData()
   } else {
     # Not using Crosstalk
-    key = NULL
-    group = NULL
+    key <- NULL
+    group <- NULL
   }
 
   # escape remove .
-  colnames(data) = gsub("[.]", "_", colnames(data))
+  colnames(data) <- gsub("[.]", "_", colnames(data))
 
-  toDescription = function(col, colname) {
-    clazz = class(col)
-    # print(paste(colname, clazz))
-    if (clazz == 'numeric') {
-      list(type = 'number',
-           column = colname,
-           domain = c(min(col, na.rm = TRUE), max(col, na.rm = TRUE)))
-    } else if (clazz == 'factor') {
-      list(type = 'categorical',
-           column = colname,
-           categories = levels(col))
-    } else if (clazz == 'logical') {
-      list(type = 'boolean', column = colname)
+  toDescription <- function(col, colname) {
+    clazz <- class(col)
+    if (clazz == "numeric") {
+      list(
+        type = "number",
+        column = colname,
+        domain = c(min(col, na.rm = TRUE), max(col, na.rm = TRUE))
+      )
+    } else if (clazz == "factor") {
+      list(
+        type = "categorical",
+        column = colname,
+        categories = levels(col)
+      )
+    } else if (clazz == "logical") {
+      list(type = "boolean", column = colname)
     } else {
-      list(type = 'string', column = colname)
+      list(type = "string", column = colname)
     }
   }
   # convert columns
-  cols = mapply(toDescription, data, colnames(data), SIMPLIFY = F)
+  cols <- mapply(toDescription, data, colnames(data), SIMPLIFY = F)
   # insert id column
-  cols[['rowname']] = list(type = 'string', column = 'rowname', frozen = TRUE)
+  cols[["rowname"]] <- list(type = "string", column = "rowname", frozen = TRUE)
 
   # forward options using x
   structure(list(
     data = cbind(rowname = rownames(data), data),
-    colnames = c('rowname', colnames(data)),
+    colnames = c("rowname", colnames(data)),
     cols = cols,
     crosstalk = list(key = key, group = group),
     options = options,
     rankings = list(ranking = ranking, ...)
-  ), class='LineUpBuilder')
+  ), class = "LineUpBuilder")
 }
 
-.buildLineUpWidget = function(x, width, height, elementId, dependencies, lineupType) {
+.buildLineUpWidget <- function(x, width, height, elementId, dependencies, lineupType) {
   # create widget
   htmlwidgets::createWidget(
     name = lineupType,
     x,
     width = width,
     height = height,
-    package = 'lineupjs',
+    package = "lineupjs",
     elementId = elementId,
     dependencies = dependencies
   )
@@ -127,11 +130,11 @@ lineupBuilder = function(data,
 #' @return html lineup widget
 #'
 #' @export
-buildLineUp = function(x, width = '100%',
-                  height = NULL,
-                  elementId = NULL,
-                  dependencies = crosstalk::crosstalkLibs()) {
-  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType='lineup')
+buildLineUp <- function(x, width = "100%",
+                        height = NULL,
+                        elementId = NULL,
+                        dependencies = crosstalk::crosstalkLibs()) {
+  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType = "lineup")
 }
 
 #' taggle - factory for Taggle HTMLWidget
@@ -145,11 +148,11 @@ buildLineUp = function(x, width = '100%',
 #' @return html taggle widget
 
 #' @export
-buildTaggle = function(x, width = '100%',
-                  height = NULL,
-                  elementId = NULL,
-                  dependencies = crosstalk::crosstalkLibs()) {
-  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType='taggle')
+buildTaggle <- function(x, width = "100%",
+                        height = NULL,
+                        elementId = NULL,
+                        dependencies = crosstalk::crosstalkLibs()) {
+  .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType = "taggle")
 }
 
 
@@ -190,15 +193,15 @@ buildTaggle = function(x, width = '100%',
 #' }
 #'
 #' @export
-lineup = function(data,
-                  width = '100%',
-                  height = NULL,
-                  elementId = NULL,
-                  options = c(.lineupDefaultOptions),
-                  ranking = NULL,
-                  dependencies = crosstalk::crosstalkLibs(),
-                  ...) {
-  x = lineupBuilder(data, options, ranking, ...)
+lineup <- function(data,
+                   width = "100%",
+                   height = NULL,
+                   elementId = NULL,
+                   options = c(.lineupDefaultOptions),
+                   ranking = NULL,
+                   dependencies = crosstalk::crosstalkLibs(),
+                   ...) {
+  x <- lineupBuilder(data, options, ranking, ...)
   buildLineUp(x, width, height, elementId, dependencies)
 }
 
@@ -241,15 +244,15 @@ lineup = function(data,
 #' }
 #'
 #' @export
-taggle = function(data,
-                  width = '100%',
-                  height = NULL,
-                  elementId = NULL,
-                  options = c(.lineupDefaultOptions),
-                  ranking = NULL,
-                  dependencies = crosstalk::crosstalkLibs(),
-                  ...) {
-  x = lineupBuilder(data, options, ranking, ...)
+taggle <- function(data,
+                   width = "100%",
+                   height = NULL,
+                   elementId = NULL,
+                   options = c(.lineupDefaultOptions),
+                   ranking = NULL,
+                   dependencies = crosstalk::crosstalkLibs(),
+                   ...) {
+  x <- lineupBuilder(data, options, ranking, ...)
   buildTaggle(x, width, height, elementId, dependencies)
 }
 
@@ -282,17 +285,17 @@ taggle = function(data,
 #' @return a configured lineup ranking config
 #'
 #' @examples
-#' lineupRanking(columns=c('*'))
-#' lineupRanking(columns=c('*'), sortBy = c('hp'))
-#' lineupRanking(columns=c('*', 'sum'),
-#'   sum = list(type='weightedSum', columns = c('hp', 'wt'), weights = c(0.7, 0.3)))
-#'
+#' lineupRanking(columns = c("*"))
+#' lineupRanking(columns = c("*"), sortBy = c("hp"))
+#' lineupRanking(
+#'   columns = c("*", "sum"),
+#'   sum = list(type = "weightedSum", columns = c("hp", "wt"), weights = c(0.7, 0.3))
+#' )
 #' @export
-lineupRanking = function(columns = c('_*', '*'),
-                         sortBy = c(),
-                         groupBy = c(),
-                         ...) {
-
+lineupRanking <- function(columns = c("_*", "*"),
+                          sortBy = c(),
+                          groupBy = c(),
+                          ...) {
   list(
     columns = columns,
     sortBy = sortBy,
@@ -318,21 +321,21 @@ lineupRanking = function(columns = c('_*', '*'),
 #' @name lineup-shiny
 #'
 #' @export
-lineupOutput = function(outputId,
-                        width = '100%',
-                        height = '800px') {
-  htmlwidgets::shinyWidgetOutput(outputId, 'lineup', width, height, package = 'lineupjs')
+lineupOutput <- function(outputId,
+                         width = "100%",
+                         height = "800px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "lineup", width, height, package = "lineupjs")
 }
 
 #' Shiny render bindings for lineup
 #'
 #' @rdname lineup-shiny
 #' @export
-renderLineup = function(expr,
-                        env = parent.frame(),
-                        quoted = FALSE) {
+renderLineup <- function(expr,
+                         env = parent.frame(),
+                         quoted = FALSE) {
   if (!quoted) {
-    expr = substitute(expr)
+    expr <- substitute(expr)
   } # force quoted
   htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
 }
@@ -354,21 +357,21 @@ renderLineup = function(expr,
 #' @name taggle-shiny
 #'
 #' @export
-taggleOutput = function(outputId,
-                        width = '100%',
-                        height = '800px') {
-  htmlwidgets::shinyWidgetOutput(outputId, 'taggle', width, height, package = 'lineupjs')
+taggleOutput <- function(outputId,
+                         width = "100%",
+                         height = "800px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "taggle", width, height, package = "lineupjs")
 }
 
 #' Shiny render bindings for taggle
 #'
 #' @rdname taggle-shiny
 #' @export
-renderTaggle = function(expr,
-                        env = parent.frame(),
-                        quoted = FALSE) {
+renderTaggle <- function(expr,
+                         env = parent.frame(),
+                         quoted = FALSE) {
   if (!quoted) {
-    expr = substitute(expr)
+    expr <- substitute(expr)
   } # force quoted
   htmlwidgets::shinyRenderWidget(expr, taggleOutput, env, quoted = TRUE)
 }

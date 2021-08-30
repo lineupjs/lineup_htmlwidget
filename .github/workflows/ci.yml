@@ -37,7 +37,7 @@ jobs:
 
       - name: Style / Format
         shell: Rscript {0}
-        run: styler::style_pkg(dry="fail")
+        run: styler::style_dir(filetype=c('R', 'Rmd'), dry="fail")
 
       - name: Build Package
 
