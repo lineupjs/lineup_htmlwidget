@@ -20,9 +20,14 @@
 #'
 #' @param data data frame like object i.e. also crosstalk shared data frame
 #' @param options LineUp options
-#'  \describe{
+#' @param ranking ranking definition created using \code{\link{lineupRanking}}
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#'
+#' \section{LineUp options}{
+#'   \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
 #'    \item{animated}{use animated transitions (default: TRUE)}
 #'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
 #'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
@@ -37,8 +42,7 @@
 #'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
-#' @param ranking ranking definition created using \code{\link{lineupRanking}}
-#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#' }
 #'
 #' @return lineup builder objects
 #'
@@ -56,7 +60,7 @@ lineupBuilder <- function(data,
   # extend with all the default options
   options <- c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
-  if (crosstalk::is.SharedData(data)) {
+  if (require('crosstalk') && crosstalk::is.SharedData(data)) {
     # using Crosstalk
     key <- data$key()
     group <- data$groupName()
@@ -119,6 +123,14 @@ lineupBuilder <- function(data,
   )
 }
 
+.crosstalkLineUpLibs <- function() {
+  if(require('crosstalk')) {
+    crosstalk::crosstalkLibs()
+  } else {
+    c()
+  }
+}
+
 #' lineup - factory for LineUp HTMLWidget
 #'
 #' @param x LineUpBuilder object
@@ -133,7 +145,7 @@ lineupBuilder <- function(data,
 buildLineUp <- function(x, width = "100%",
                         height = NULL,
                         elementId = NULL,
-                        dependencies = crosstalk::crosstalkLibs()) {
+                        dependencies = .crosstalkLineUpLibs()) {
   .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType = "lineup")
 }
 
@@ -151,7 +163,7 @@ buildLineUp <- function(x, width = "100%",
 buildTaggle <- function(x, width = "100%",
                         height = NULL,
                         elementId = NULL,
-                        dependencies = crosstalk::crosstalkLibs()) {
+                        dependencies = .crosstalkLineUpLibs()) {
   .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType = "taggle")
 }
 
@@ -163,57 +175,12 @@ buildTaggle <- function(x, width = "100%",
 #' @param height height of the element
 #' @param elementId unique element id
 #' @param options LineUp options
-#'  \describe{
-#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
-#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{animated}{use animated transitions (default: TRUE)}
-#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
-#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
-#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
-#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
-#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
-#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
-#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
-#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
-#'    \item{rowHeight}{height of a row in pixel (default: 18)}
-#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
-#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
-#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
-#'  }
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
-#' @return html lineup widget
-#'
-#' @examples
-#' \dontrun{
-#' lineup(mtcars)
-#' lineup(iris)
-#' }
-#'
-#' @export
-lineup <- function(data,
-                   width = "100%",
-                   height = NULL,
-                   elementId = NULL,
-                   options = c(.lineupDefaultOptions),
-                   ranking = NULL,
-                   dependencies = crosstalk::crosstalkLibs(),
-                   ...) {
-  x <- lineupBuilder(data, options, ranking, ...)
-  buildLineUp(x, width, height, elementId, dependencies)
-}
-
-
-#' taggle - factory for Taggle HTMLWidget
-#'
-#' @param data data frame like object i.e. also crosstalk shared data frame
-#' @param width width of the element
-#' @param height height of the element
-#' @param elementId unique element id
-#' @param options LineUp options
-#'  \describe{
+#' \section{LineUp options}{
+#'   \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
 #'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
@@ -231,9 +198,61 @@ lineup <- function(data,
 #'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
+#' }
+#'
+#' @return html lineup widget
+#'
+#' @examples
+#' \dontrun{
+#' lineup(mtcars)
+#' lineup(iris)
+#' }
+#'
+#' @export
+lineup <- function(data,
+                   width = "100%",
+                   height = NULL,
+                   elementId = NULL,
+                   options = c(.lineupDefaultOptions),
+                   ranking = NULL,
+                   dependencies = .crosstalkLineUpLibs(),
+                   ...) {
+  x <- lineupBuilder(data, options, ranking, ...)
+  buildLineUp(x, width, height, elementId, dependencies)
+}
+
+
+#' taggle - factory for Taggle HTMLWidget
+#'
+#' @param data data frame like object i.e. also crosstalk shared data frame
+#' @param width width of the element
+#' @param height height of the element
+#' @param elementId unique element id
+#' @param options LineUp options
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#'
+#' \section{LineUp options}{
+#'   \describe{
+#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
+#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
+#'    \item{animated}{use animated transitions (default: TRUE)}
+#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
+#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
+#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
+#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
+#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
+#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
+#'    \item{rowHeight}{height of a row in pixel (default: 18)}
+#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
+#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
+#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
+#'  }
+#' }
 #'
 #' @return html taggle widget
 #'
@@ -250,7 +269,7 @@ taggle <- function(data,
                    elementId = NULL,
                    options = c(.lineupDefaultOptions),
                    ranking = NULL,
-                   dependencies = crosstalk::crosstalkLibs(),
+                   dependencies = .crosstalkLineUpLibs(),
                    ...) {
   x <- lineupBuilder(data, options, ranking, ...)
   buildTaggle(x, width, height, elementId, dependencies)
@@ -258,31 +277,36 @@ taggle <- function(data,
 
 #' helper function for creating a LineUp ranking definition as used by \code{\link{lineup}}
 #'
-#' @param columns list of columns shown in this ranking, besides \emph{column names of the given data frame} following special columsn are available
-#'  \describe{
-#'    \item{*}{include all data frame columns}
-#'    \item{_*}{add multiple support columns (_aggregate, _rank, _selection)}
-#'    \item{_aggregate}{add a column for collapsing groups}
-#'    \item{_rank}{add a column for showing the rank of the item}
-#'    \item{_selection}{add a column with checkboxes for selecting items}
-#'    \item{_group}{add a column showing the current grouping title}
-#'    \item{<data.frame column>}{add the specific column}
-#'    \item{<def column>}{add defined column given as additional parameter to this function, see below}
-#'  }
-#' @param sortBy list of columns to sort this ranking by, grammar: <column name>[:desc]
+#' @param columns list of columns shown in this ranking, besides \emph{column names of the given data frame} following special columns are available
+#' @param sortBy list of columns to sort this ranking by, grammar: \code{"<column name>[:desc]"}
 #' @param groupBy list of columns to group this ranking by
 #' @param ... additional ranking combination definitions as lists (\code{list(type = 'min', columns = c('a', 'b'), label = NULL)}), possible types
-#'  \describe{
-#'    \item{weightedSum}{a weighted sum of multiple numeric columns, extras \code{list(weights = c(0.4, 0.6))}}
-#'    \item{min}{minimum of multiple numeric columns}
-#'    \item{max}{maximum of multiple numeric columns}
-#'    \item{mean}{mean of multiple numeric columns}
-#'    \item{median}{median of multiple numeric columns}
-#'    \item{nested}{group multiple columns}
-#'    \item{script}{scripted (JS code) combination of multiple numeric columns, extras \code{list(code = '...')}}
-#'    \item{impose}{color a numerical column (column) with the color of a categorical column (categoricalColumn), changed \code{list(column = 'a', categoricalColumn = 'b')}}
-#'  }
 #' @return a configured lineup ranking config
+#'
+#' @section Special columns:
+#'
+#'  \describe{
+#'    \item{'*'}{include all data frame columns}
+#'    \item{'_*'}{add multiple support columns (_aggregate, _rank, _selection)}
+#'    \item{'_aggregate'}{add a column for collapsing groups}
+#'    \item{'_rank'}{add a column for showing the rank of the item}
+#'    \item{'_selection'}{add a column with checkboxes for selecting items}
+#'    \item{'_group'}{add a column showing the current grouping title}
+#'    \item{'$data.frame column$'}{add the specific column}
+#'    \item{'$def column$'}{add defined column given as additional parameter to this function, see below}
+#'  }
+#'
+#' @section Ranking definition types:
+#' \describe{
+#'  \item{weightedSum}{a weighted sum of multiple numeric columns, extras \code{list(weights = c(0.4, 0.6))}}
+#'  \item{min}{minimum of multiple numeric columns}
+#'  \item{max}{maximum of multiple numeric columns}
+#'  \item{mean}{mean of multiple numeric columns}
+#'  \item{median}{median of multiple numeric columns}
+#'  \item{nested}{group multiple columns}
+#'  \item{script}{scripted (JS code) combination of multiple numeric columns, extras \code{list(code = '...')}}
+#'  \item{impose}{color a numerical column (column) with the color of a categorical column (categoricalColumn), changed \code{list(column = 'a', categoricalColumn = 'b')}}
+#' }
 #'
 #' @examples
 #' lineupRanking(columns = c("*"))
@@ -318,7 +342,8 @@ lineupRanking <- function(columns = c("_*", "*"),
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name lineup-shiny
+#' @name lineup-shiny#'
+#' @importFrom htmlwidgets shinyWidgetOutput
 #'
 #' @export
 lineupOutput <- function(outputId,
@@ -355,6 +380,7 @@ renderLineup <- function(expr,
 #'   is useful if you want to save an expression in a variable.
 #'
 #' @name taggle-shiny
+#' @importFrom htmlwidgets shinyWidgetOutput
 #'
 #' @export
 taggleOutput <- function(outputId,
@@ -365,6 +391,7 @@ taggleOutput <- function(outputId,
 
 #' Shiny render bindings for taggle
 #'
+#' @importFrom htmlwidgets shinyRenderWidget
 #' @rdname taggle-shiny
 #' @export
 renderTaggle <- function(expr,

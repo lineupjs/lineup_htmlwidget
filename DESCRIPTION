@@ -17,12 +17,14 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
   htmlwidgets,
-  htmltools,
-  crosstalk
+  htmltools
 Suggests:
-    knitr,
-    rmarkdown,
-    testthat
+  crosstalk,
+  knitr,
+  rmarkdown,
+  testthat,
+  lintr,
+  styler
 LazyData: true
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr

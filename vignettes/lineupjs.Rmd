@@ -1,0 +1,32 @@
+---
+title: "LineUp.js HTMLWidget"
+author: "Samuel Gratzl"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{LineUp.js HTMLWidget}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## LineUp HTMLWidget in R Markdown
+
+This is a simple example how to include the LineUp [HTMLWidget](http://www.htmlwidgets.org/) in your R Markdown file
+
+```{r libraries}
+# devtools::install_github("lineupjs/lineup_htmlwidget")
+
+library(lineupjs)
+```
+
+## Simple Example
+
+```{r lineup}
+
+lineup(iris)
+```

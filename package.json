@@ -1,0 +1,22 @@
+{
+  "name": "lineup_htmlwidget",
+  "version": "4.2.0",
+  "description": "LineUp.js as HTMLWidget",
+  "bugs": {
+    "url": "https://github.com/lineupjs/lineup_htmlwidget/issues"
+  },
+  "homepage": "https://github.com/lineupjs/lineup_htmlwidget#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lineupjs/lineup_htmlwidget.git"
+  },
+  "dependencies": {
+    "lineupjs": "4.2.0"
+  },
+  "scripts": {
+    "postinstall": "shx mkdir -p inst/htmlwidgets/dist && shx cp -r \"node_modules/lineupjs/build/LineUp*\" \"node_modules/lineupjs/build/*.eot\" \"node_modules/lineupjs/build/*.svg\" \"node_modules/lineupjs/build/*.ttf\" inst/htmlwidgets/dist"
+  },
+  "devDependencies": {
+    "shx": "^0.3.3"
+  }
+}
