@@ -23,7 +23,7 @@ The LineUp HTMLWidget supports [Crosstalk](http://rstudio.github.io/crosstalk/) 
 library(crosstalk)
 library(lineupjs)
 
-devtools::install_github("jcheng5/d3scatter")
+remotes::install_github("jcheng5/d3scatter", auth = NULL)
 library(d3scatter)
 
 sharedIris <- SharedData$new(iris)
