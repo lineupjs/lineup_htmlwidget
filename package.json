@@ -11,12 +11,12 @@
     "url": "git+https://github.com/lineupjs/lineup_htmlwidget.git"
   },
   "dependencies": {
-    "lineupjs": "4.2.0"
+    "lineupjs": "4.6.2"
   },
   "scripts": {
     "postinstall": "shx mkdir -p inst/htmlwidgets/dist && shx cp -r \"node_modules/lineupjs/build/LineUp*\" \"node_modules/lineupjs/build/*.eot\" \"node_modules/lineupjs/build/*.svg\" \"node_modules/lineupjs/build/*.ttf\" inst/htmlwidgets/dist"
   },
   "devDependencies": {
-    "shx": "^0.3.3"
+    "shx": "^0.3.4"
   }
 }
