@@ -1,5 +1,6 @@
-linters: with_defaults(
+linters: linters_with_defaults(
   line_length_linter(200),
   cyclocomp_linter = NULL,
+  commented_code_linter = NULL,
   object_name_linter('camelCase')
   )

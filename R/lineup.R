@@ -60,7 +60,7 @@ lineupBuilder <- function(data,
   # extend with all the default options
   options <- c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
-  if (require('crosstalk') && crosstalk::is.SharedData(data)) {
+  if (require("crosstalk") && crosstalk::is.SharedData(data)) {
     # using Crosstalk
     key <- data$key()
     group <- data$groupName()
@@ -95,7 +95,7 @@ lineupBuilder <- function(data,
     }
   }
   # convert columns
-  cols <- mapply(toDescription, data, colnames(data), SIMPLIFY = F)
+  cols <- mapply(toDescription, data, colnames(data), SIMPLIFY = FALSE)
   # insert id column
   cols[["rowname"]] <- list(type = "string", column = "rowname", frozen = TRUE)
 
@@ -124,7 +124,7 @@ lineupBuilder <- function(data,
 }
 
 .crosstalkLineUpLibs <- function() {
-  if(require('crosstalk')) {
+  if (require("crosstalk")) {
     crosstalk::crosstalkLibs()
   } else {
     c()

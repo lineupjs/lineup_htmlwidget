@@ -26,11 +26,11 @@ library(lineupjs)
 devtools::install_github("jcheng5/d3scatter")
 library(d3scatter)
 
-shared_iris = SharedData$new(iris)
+sharedIris <- SharedData$new(iris)
 
-d3scatter(shared_iris, ~Petal.Length, ~Petal.Width, ~Species, width="100%")
+d3scatter(sharedIris, ~Petal.Length, ~Petal.Width, ~Species, width = "100%")
 ```
 
 ```{r crosstalk_iris_lineup}
-lineup(shared_iris, width="100%")
+lineup(sharedIris, width = "100%")
 ```
