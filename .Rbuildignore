@@ -13,4 +13,4 @@ node_modules
 ^\.bumpversion\.cfg$
 ^\.editorconfig$
 ^\.lintr$
-^\Makefile$
+^Makefile$

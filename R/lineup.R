@@ -23,7 +23,7 @@
 #' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
-#' \section{LineUp options}{
+#' @section LineUp options:
 #'   \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
@@ -42,7 +42,6 @@
 #'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
-#' }
 #'
 #' @return lineup builder objects
 #'
@@ -179,7 +178,7 @@ buildTaggle <- function(x, width = "100%",
 #' @param dependencies include crosstalk dependencies
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
-#' \section{LineUp options}{
+#' @section LineUp options:
 #'   \describe{
 #'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
 #'    \item{singleSelection}{restrict to single item selection (default: FALSE}
@@ -198,7 +197,6 @@ buildTaggle <- function(x, width = "100%",
 #'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
-#' }
 #'
 #' @return html lineup widget
 #'
@@ -233,25 +231,24 @@ lineup <- function(data,
 #' @param dependencies include crosstalk dependencies
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
-#' \section{LineUp options}{
-#'   \describe{
-#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
-#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
-#'    \item{animated}{use animated transitions (default: TRUE)}
-#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
-#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
-#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
-#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
-#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
-#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
-#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
-#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
-#'    \item{rowHeight}{height of a row in pixel (default: 18)}
-#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
-#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
-#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
-#'  }
+#' @section LineUp options:
+#' \describe{
+#'  \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
+#'  \item{singleSelection}{restrict to single item selection (default: FALSE}
+#'  \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
+#'  \item{animated}{use animated transitions (default: TRUE)}
+#'  \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
+#'  \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
+#'  \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
+#'  \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
+#'  \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
+#'  \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
+#'  \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
+#'  \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
+#'  \item{rowHeight}{height of a row in pixel (default: 18)}
+#'  \item{rowPadding}{padding between two rows in pixel  (default: 2)}
+#'  \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
+#'  \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #' }
 #'
 #' @return html taggle widget
@@ -285,16 +282,16 @@ taggle <- function(data,
 #'
 #' @section Special columns:
 #'
-#'  \describe{
-#'    \item{'*'}{include all data frame columns}
-#'    \item{'_*'}{add multiple support columns (_aggregate, _rank, _selection)}
-#'    \item{'_aggregate'}{add a column for collapsing groups}
-#'    \item{'_rank'}{add a column for showing the rank of the item}
-#'    \item{'_selection'}{add a column with checkboxes for selecting items}
-#'    \item{'_group'}{add a column showing the current grouping title}
-#'    \item{'$data.frame column$'}{add the specific column}
-#'    \item{'$def column$'}{add defined column given as additional parameter to this function, see below}
-#'  }
+#' \describe{
+#'  \item{'* '}{include all data frame columns}
+#'  \item{'_* '}{add multiple support columns (_aggregate, _rank, _selection)}
+#'  \item{'_aggregate'}{add a column for collapsing groups}
+#'  \item{'_rank'}{add a column for showing the rank of the item}
+#'  \item{'_selection'}{add a column with checkboxes for selecting items}
+#'  \item{'_group'}{add a column showing the current grouping title}
+#'  \item{'$data.frame column$'}{add the specific column}
+#'  \item{'$def column$'}{add defined column given as additional parameter to this function, see below}
+#' }
 #'
 #' @section Ranking definition types:
 #' \describe{
