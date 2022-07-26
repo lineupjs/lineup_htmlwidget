@@ -59,7 +59,7 @@ lineupBuilder <- function(data,
   # extend with all the default options
   options <- c(options, .lineupDefaultOptions[!(names(.lineupDefaultOptions) %in% names(options))])
 
-  if (require("crosstalk") && crosstalk::is.SharedData(data)) {
+  if (requireNamespace("crosstalk") && crosstalk::is.SharedData(data)) {
     # using Crosstalk
     key <- data$key()
     group <- data$groupName()
@@ -123,7 +123,7 @@ lineupBuilder <- function(data,
 }
 
 .crosstalkLineUpLibs <- function() {
-  if (require("crosstalk")) {
+  if (requireNamespace("crosstalk")) {
     crosstalk::crosstalkLibs()
   } else {
     c()
@@ -352,6 +352,10 @@ lineupOutput <- function(outputId,
 #' Shiny render bindings for lineup
 #'
 #' @rdname lineup-shiny
+#' @param expr An expression that generates a taggle
+#' @param env The environment in which to evaluate \code{expr}.
+#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
+#'   is useful if you want to save an expression in a variable.
 #' @export
 renderLineup <- function(expr,
                          env = parent.frame(),

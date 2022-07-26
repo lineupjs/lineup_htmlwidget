@@ -16,14 +16,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Imports:
-  htmlwidgets,
-  htmltools
+  htmlwidgets
 Suggests:
   crosstalk,
   knitr,
   rmarkdown,
   testthat,
   lintr,
+  devtools,
   styler
 LazyData: true
 RoxygenNote: 7.2.0
