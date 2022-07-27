@@ -44,11 +44,12 @@ jobs:
         run: styler::style_dir(filetype=c('R', 'Rmd'), dry="fail")
 
       - name: Build Package
-
         shell: Rscript {0}
         run: |
           devtools::document()
           devtools::build()
+        env:
+          GITHUB_PAT: ''
 
       - name: Lint
         shell: Rscript {0}
