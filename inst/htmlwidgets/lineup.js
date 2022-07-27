@@ -195,7 +195,7 @@
           }
 
           // update cross talk
-          if (x.crosstalk.group && x.crosstalk.key) {
+          if (x.crosstalk.group && x.crosstalk.key && window.crosstalk != null) {
             if (!crossTalk) {
               crossTalk = that.crossTalk(data);
             }

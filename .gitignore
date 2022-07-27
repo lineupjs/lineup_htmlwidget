@@ -1,4 +1,11 @@
+node_modules
 .Rproj.user
 .Rhistory
 .RData
-examples/*.html
+.Ruserdata
+docs
+inst/htmlwidgets/dist
+/man
+/NAMESPACE
+/check
+/vignettes/*.R

@@ -1,0 +1,80 @@
+name: ci
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: https://packagemanager.rstudio.com/cran/__linux__/focal/latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+      - uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: 3.6
+      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-v1-${{ hashFiles('DESCRIPTION')}}
+          restore-keys: ${{ runner.os }}-r-v1-
+
+      # - name: Install system dependencies
+      #   env:
+      #     RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+      #   run: |
+      #     Rscript -e "remotes::install_github('r-hub/sysreqs')"
+      #     sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+      #     sudo -s eval "$sysreqs"
+
+      - name: Install dependencies
+        shell: Rscript {0}
+        run: |
+          install.packages(c('devtools', 'pkgdown', 'webshot', 'textshaping', 'styler', 'lintr'))
+          devtools::install_deps(dependencies = TRUE)
+
+      - name: Install LineUp
+        run: npm install
+
+      - name: Style / Format
+        shell: Rscript {0}
+        run: styler::style_dir(filetype=c('R', 'Rmd'), dry="fail")
+
+      - name: Build Package
+        env:
+          GITHUB_PAT: ''
+          GITHUB_TOKEN: ''
+          CI: ''
+        shell: Rscript {0}
+        run: |
+          devtools::document()
+          devtools::build()
+
+      - name: Lint
+        shell: Rscript {0}
+        run: |
+          devtools::load_all()
+          lintr::lint_package('.')
+
+      - name: Check
+        env:
+          _R_CHECK_CRAN_INCOMING_REMOTE_: false
+          GITHUB_PAT: ''
+          GITHUB_TOKEN: ''
+          CI: ''
+        shell: Rscript {0}
+        run: devtools::check(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
+
+      - name: Upload check results
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ runner.os }}-results
+          path: r_package/check
+
+      - name: Test
+        shell: Rscript {0}
+        run: devtools::test()

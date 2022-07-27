@@ -1,5 +1,16 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .editorconfig
-.circleci
 examples
+package-lock.json
+package.json
+node_modules
+^_pkgdown\.yml$
+^pkgdown$
+^data-raw$
+^cran-comments.md$
+^\.github$
+^\.bumpversion\.cfg$
+^\.editorconfig$
+^\.lintr$
+^Makefile$

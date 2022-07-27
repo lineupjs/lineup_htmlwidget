@@ -1,0 +1,28 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+categories:
+  - title: "📚 Content Changes"
+    labels:
+      - "blog"
+      - "content"
+  - title: "🚀 Features"
+    labels:
+      - "enhancement"
+      - "feature"
+  - title: "🐛 Bugs Fixes"
+    labels:
+      - "bug"
+  - title: "📕 Documentation"
+    labels:
+      - "documentation"
+  - title: "🧰 Development"
+    labels:
+      - "chore"
+      - "documentation"
+      - "dependencies"
+change-template: "- #$NUMBER $TITLE"
+change-title-escapes: '\<*_&`#@'
+template: |
+  $CHANGES
+
+  Thanks to $CONTRIBUTORS
