@@ -1,43 +1,44 @@
 name: Create Release
+
 on:
   workflow_dispatch:
     inputs:
       versionName:
-        description: "Semantic Version Number (i.e., 5.5.0 or patch, minor, major, prepatch, preminor, premajor, prerelease)"
+        description: 'Semantic Version Number (i.e., 5.5.0 or patch, minor, major, prepatch, preminor, premajor, prerelease)'
         required: true
         default: patch
+      preid:
+        description: 'Pre Release Identifier (i.e., alpha, beta)'
+        required: true
+        default: alpha
+
 jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: main
-          ssh-key: ${{ secrets.CMU_DELPHI_DEPLOY_MACHINE_SSH }}
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Reset main branch
         run: |
-          git fetch origin dev:dev
-          git reset --hard dev
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+          git fetch origin develop:develop
+          git reset --hard develop
       - name: Change version number
         id: version
         run: |
-          python -m pip install bump2version
           echo -n "::set-output name=next_tag::"
-          bump2version --list ${{ github.event.inputs.versionName }} | grep new_version | sed -r s,"^.*=",,
+          npm version --no-git-tag-version ${{ github.event.inputs.versionName }} --preid ${{ github.event.inputs.preid }}
       - name: Create pull request into main
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           branch: release/${{ steps.version.outputs.next_tag }}
-          commit-message: "chore: release ${{ steps.version.outputs.next_tag }}"
+          commit-message: 'chore: release ${{ steps.version.outputs.next_tag }}'
           base: main
           title: Release ${{ steps.version.outputs.next_tag }}
           labels: chore
-          reviewers: krivard
-          assignees: krivard
+          reviewers: sgratzl
+          assignees: sgratzl
           body: |
             Releasing ${{ steps.version.outputs.next_tag }}.
