@@ -9,3 +9,4 @@ inst/htmlwidgets/dist
 /NAMESPACE
 /check
 /vignettes/*.R
+/check
