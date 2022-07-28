@@ -1,7 +1,7 @@
 LineUp.js as HTMLWidget
 =======================
 
-[![License: MIT][mit-image]][mit-url] [![CircleCI][ci-image]][ci-url] [![CircleCI][ci-image-dev]][ci-url-dev]
+[![License: MIT][mit-image]][mit-url] [![Github Actions][github-actions-image]][github-actions-url]
 
 LineUp is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.
 This is a [HTMLWidget](http://www.htmlwidgets.org/) wrapper around the JavaScript library [LineUp.js](https://github.com/lineupjs/lineupjs). Details about the LineUp visualization technique can be found at [http://lineup.caleydo.org](http://lineup.caleydo.org).
@@ -13,8 +13,7 @@ Installation
 ------------
 
 ```R
-devtools::install_github("rstudio/crosstalk")
-devtools::install_github("lineupjs/lineup_htmlwidget")
+install.packages('lineupjs')
 library(lineupjs)
 ```
 
@@ -118,7 +117,5 @@ Authors
 
 [mit-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [mit-url]: https://opensource.org/licenses/MIT
-[ci-image]: https://circleci.com/gh/lineupjs/lineup_htmlwidget.svg?style=shield
-[ci-url]: https://circleci.com/gh/lineupjs/lineup_htmlwidget
-[ci-image-dev]: https://circleci.com/gh/lineupjs/lineup_htmlwidget/tree/develop.svg?style=shield
-[ci-url-dev]: https://circleci.com/gh/lineupjs/lineup_htmlwidget/tree/develop
+[github-actions-image]: https://github.com/lineupjs/lineup_htmlwidget/workflows/ci/badge.svg
+[github-actions-url]: https://github.com/lineupjs/lineup_htmlwidget/actions
