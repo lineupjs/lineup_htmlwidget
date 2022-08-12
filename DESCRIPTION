@@ -24,7 +24,8 @@ Suggests:
   testthat,
   lintr,
   remotes,
-  styler
+  styler,
+  shiny
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 Language: en-US

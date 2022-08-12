@@ -287,7 +287,18 @@ lineupRanking <- function(columns = c("_*", "*"),
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
+#' @rdname lineup-shiny
+#' @examples # !formatR
+#' library(shiny)
+#' app <- shinyApp(
+#'   ui = fluidPage(lineupOutput('lineup')),
+#'   server = function(input, output) {
+#'     lineup <- lineupBuilder(iris) |> buildLineUp()
+#'     output$lineup = renderLineup(lineup)
+#'   }
+#' )
 #'
+#' \donttest{if (interactive()) app}
 #' @export
 lineupOutput <- function(outputId,
                          width = "100%",
@@ -301,6 +312,7 @@ lineupOutput <- function(outputId,
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
+#' @rdname lineup-shiny
 #' @export
 renderLineup <- function(expr,
                          env = parent.frame(),
@@ -317,8 +329,18 @@ renderLineup <- function(expr,
 #' applications and interactive Rmd documents.
 #'
 #' @inheritParams lineupOutput
+#' @rdname taggle-shiny
+#' @examples # !formatR
+#' library(shiny)
+#' app <- shinyApp(
+#'   ui = fluidPage(taggleOutput('taggle')),
+#'   server = function(input, output) {
+#'     taggle <- lineupBuilder(iris) |> buildTaggle()
+#'     output$taggle = renderTaggle(taggle)
+#'   }
+#' )
 #'
-#'
+#' \donttest{if (interactive()) app}
 #' @export
 taggleOutput <- function(outputId,
                          width = "100%",
@@ -329,6 +351,7 @@ taggleOutput <- function(outputId,
 #' Shiny render bindings for taggle
 #'
 #' @inheritParams renderLineup
+#' @rdname taggle-shiny
 #'
 #' @export
 renderTaggle <- function(expr,
