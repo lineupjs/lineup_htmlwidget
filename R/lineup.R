@@ -291,14 +291,16 @@ lineupRanking <- function(columns = c("_*", "*"),
 #' @examples # !formatR
 #' library(shiny)
 #' app <- shinyApp(
-#'   ui = fluidPage(lineupOutput('lineup')),
+#'   ui = fluidPage(lineupOutput("lineup")),
 #'   server = function(input, output) {
 #'     lineup <- lineupBuilder(iris) |> buildLineUp()
-#'     output$lineup = renderLineup(lineup)
+#'     output$lineup <- renderLineup(lineup)
 #'   }
 #' )
 #'
-#' \donttest{if (interactive()) app}
+#' \donttest{
+#' if (interactive()) app
+#' }
 #' @export
 lineupOutput <- function(outputId,
                          width = "100%",
@@ -333,14 +335,16 @@ renderLineup <- function(expr,
 #' @examples # !formatR
 #' library(shiny)
 #' app <- shinyApp(
-#'   ui = fluidPage(taggleOutput('taggle')),
+#'   ui = fluidPage(taggleOutput("taggle")),
 #'   server = function(input, output) {
 #'     taggle <- lineupBuilder(iris) |> buildTaggle()
-#'     output$taggle = renderTaggle(taggle)
+#'     output$taggle <- renderTaggle(taggle)
 #'   }
 #' )
 #'
-#' \donttest{if (interactive()) app}
+#' \donttest{
+#' if (interactive()) app
+#' }
 #' @export
 taggleOutput <- function(outputId,
                          width = "100%",
