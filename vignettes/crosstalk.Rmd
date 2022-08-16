@@ -16,21 +16,20 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Cross Talk
 
-The LineUp HTMLWidget supports [Crosstalk](http://rstudio.github.io/crosstalk/) to sync selection and filtering among widgets.
+The LineUp HTMLWidget supports [Crosstalk](https://rstudio.github.io/crosstalk/) to sync selection and filtering among widgets.
 
 
 ```{r crosstalk_iris}
 library(crosstalk)
 library(lineupjs)
 
-remotes::install_github("jcheng5/d3scatter", auth_token = NULL, dependencies = FALSE, uprade = "never")
-library(d3scatter)
-
 sharedIris <- SharedData$new(iris)
-
-d3scatter(sharedIris, ~Petal.Length, ~Petal.Width, ~Species, width = "100%")
 ```
 
-```{r crosstalk_iris_lineup}
+```{r crosstalk_iris_lineup1}
+lineup(sharedIris, width = "100%")
+```
+
+```{r crosstalk_iris_lineup2}
 lineup(sharedIris, width = "100%")
 ```
