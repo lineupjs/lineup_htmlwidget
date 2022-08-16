@@ -171,11 +171,11 @@ buildTaggle <- function(x, width = "100%",
 #' lineup - factory for LineUp HTMLWidget
 #'
 #' @inheritParams lineupBuilder
-#' @inheritDotParams lineupBuilder
 #' @param width width of the element
 #' @param height height of the element
 #' @param elementId unique element id
 #' @param dependencies include crosstalk dependencies
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
 #' @inheritSection lineupBuilder LineUp options
 #' @return html lineup widget
@@ -202,7 +202,7 @@ lineup <- function(data,
 #' taggle - factory for Taggle HTMLWidget
 #'
 #' @inheritParams lineup
-#' @inheritDotParams lineup
+#' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #' @inheritSection lineup LineUp options
 #'
 #' @return html taggle widget
