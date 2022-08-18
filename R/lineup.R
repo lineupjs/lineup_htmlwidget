@@ -44,7 +44,7 @@
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
 #'
-#' @return lineup builder objects
+#' @return lineup builder object
 #'
 #' @examples
 #' \dontrun{
@@ -138,7 +138,7 @@ lineupBuilder <- function(data,
 #' @param elementId unique element id
 #' @param dependencies include crosstalk dependencies
 #'
-#' @return html lineup widget
+#' @return lineup html widget
 #'
 #' @examples
 #' \dontrun{
@@ -154,6 +154,8 @@ buildLineUp <- function(x, width = "100%",
 
 #' factory for LineUp HTMLWidget based on a LineUpBuilder
 #' @inheritParams buildLineUp
+#'
+#' @return taggle html widget
 #'
 #' @examples
 #' \dontrun{
@@ -178,7 +180,7 @@ buildTaggle <- function(x, width = "100%",
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
 #' @inheritSection lineupBuilder LineUp options
-#' @return html lineup widget
+#' @return lineup html widget
 #'
 #' @examples
 #' \dontrun{
@@ -205,7 +207,7 @@ lineup <- function(data,
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #' @inheritSection lineup LineUp options
 #'
-#' @return html taggle widget
+#' @return taggle html widget
 #'
 #' @examples
 #' \dontrun{
@@ -288,6 +290,7 @@ lineupRanking <- function(columns = c("_*", "*"),
 #'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
 #' @rdname lineup-shiny
+#' @return An output or render function that enables the use of the widget within Shiny applications.
 #' @examples # !formatR
 #' library(shiny)
 #' app <- shinyApp(
@@ -322,7 +325,7 @@ renderLineup <- function(expr,
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
+  htmlwidgets::jj(expr, lineupOutput, env, quoted = TRUE)
 }
 
 #' Shiny bindings for taggle
@@ -332,6 +335,7 @@ renderLineup <- function(expr,
 #'
 #' @inheritParams lineupOutput
 #' @rdname taggle-shiny
+#' @return An output or render function that enables the use of the widget within Shiny applications.
 #' @examples # !formatR
 #' library(shiny)
 #' app <- shinyApp(
