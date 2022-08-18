@@ -325,7 +325,7 @@ renderLineup <- function(expr,
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted
-  htmlwidgets::jj(expr, lineupOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, lineupOutput, env, quoted = TRUE)
 }
 
 #' Shiny bindings for taggle
