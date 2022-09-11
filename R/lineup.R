@@ -16,7 +16,8 @@
   defaultSlopeGraphMode = "item",
   ignoreUnsupportedBrowser = FALSE
 )
-#' taggle - factory for Taggle HTMLWidget
+
+#' lineup builder pattern function
 #'
 #' @param data data frame like object i.e. also crosstalk shared data frame
 #' @param options LineUp options
@@ -43,12 +44,11 @@
 #'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
 #'  }
 #'
-#' @return lineup builder objects
+#' @return lineup builder object
 #'
 #' @examples
 #' \dontrun{
-#' taggle(mtcars)
-#' taggle(iris)
+#' lineupBuilder(iris) |> buildLineUp()
 #' }
 #'
 #' @export
@@ -130,7 +130,7 @@ lineupBuilder <- function(data,
   }
 }
 
-#' lineup - factory for LineUp HTMLWidget
+#' factory for LineUp HTMLWidget based on a LineUpBuilder
 #'
 #' @param x LineUpBuilder object
 #' @param width width of the element
@@ -138,8 +138,12 @@ lineupBuilder <- function(data,
 #' @param elementId unique element id
 #' @param dependencies include crosstalk dependencies
 #'
-#' @return html lineup widget
+#' @return lineup html widget
 #'
+#' @examples
+#' \dontrun{
+#' lineupBuilder(iris) |> buildLineUp()
+#' }
 #' @export
 buildLineUp <- function(x, width = "100%",
                         height = NULL,
@@ -148,16 +152,15 @@ buildLineUp <- function(x, width = "100%",
   .buildLineUpWidget(x, width, height, elementId, dependencies, lineupType = "lineup")
 }
 
-#' taggle - factory for Taggle HTMLWidget
+#' factory for LineUp HTMLWidget based on a LineUpBuilder
+#' @inheritParams buildLineUp
 #'
-#' @param x LineUpBuilder object
-#' @param width width of the element
-#' @param height height of the element
-#' @param elementId unique element id
-#' @param dependencies include crosstalk dependencies
+#' @return taggle html widget
 #'
-#' @return html taggle widget
-
+#' @examples
+#' \dontrun{
+#' lineupBuilder(iris) |> buildTaggle()
+#' }
 #' @export
 buildTaggle <- function(x, width = "100%",
                         height = NULL,
@@ -169,40 +172,18 @@ buildTaggle <- function(x, width = "100%",
 
 #' lineup - factory for LineUp HTMLWidget
 #'
-#' @param data data frame like object i.e. also crosstalk shared data frame
+#' @inheritParams lineupBuilder
 #' @param width width of the element
 #' @param height height of the element
 #' @param elementId unique element id
-#' @param options LineUp options
-#' @param ranking ranking definition created using \code{\link{lineupRanking}}
 #' @param dependencies include crosstalk dependencies
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
 #'
-#' @section LineUp options:
-#'   \describe{
-#'    \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
-#'    \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'    \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
-#'    \item{animated}{use animated transitions (default: TRUE)}
-#'    \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
-#'    \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
-#'    \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
-#'    \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
-#'    \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
-#'    \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
-#'    \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
-#'    \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
-#'    \item{rowHeight}{height of a row in pixel (default: 18)}
-#'    \item{rowPadding}{padding between two rows in pixel  (default: 2)}
-#'    \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
-#'    \item{groupPadding}{padding between two groups in pixel (default: 5)}
-#'  }
-#'
-#' @return html lineup widget
+#' @inheritSection lineupBuilder LineUp options
+#' @return lineup html widget
 #'
 #' @examples
 #' \dontrun{
-#' lineup(mtcars)
 #' lineup(iris)
 #' }
 #'
@@ -222,40 +203,14 @@ lineup <- function(data,
 
 #' taggle - factory for Taggle HTMLWidget
 #'
-#' @param data data frame like object i.e. also crosstalk shared data frame
-#' @param width width of the element
-#' @param height height of the element
-#' @param elementId unique element id
-#' @param options LineUp options
-#' @param ranking ranking definition created using \code{\link{lineupRanking}}
-#' @param dependencies include crosstalk dependencies
+#' @inheritParams lineup
 #' @param ... additional ranking definitions like 'ranking1=...' due to restrictions in converting parameters
+#' @inheritSection lineup LineUp options
 #'
-#' @section LineUp options:
-#' \describe{
-#'  \item{filterGlobally}{whether filter within one ranking applies to all rankings (default: TRUE)}
-#'  \item{singleSelection}{restrict to single item selection (default: FALSE}
-#'  \item{noCriteriaLimits}{allow more than one sort and grouping criteria (default: FALSE)}
-#'  \item{animated}{use animated transitions (default: TRUE)}
-#'  \item{sidePanel}{show side panel (TRUE, FALSE, 'collapsed') (default: 'collapsed')}
-#'  \item{hierarchyIndicator}{show sorting and grouping hierarchy indicator (TRUE, FALSE) (default: TRUE)}
-#'  \item{labelRotation}{how many degrees should a label be rotated in case of narrow columns (default: 0)}
-#'  \item{summaryHeader}{show summary histograms in the header (default: TRUE)}
-#'  \item{overviewMode}{show overview mode in Taggle by default (default: FALSE)}
-#'  \item{expandLineOnHover}{expand to full row height on mouse over (default: FALSE)}
-#'  \item{defaultSlopeGraphMode}{default slope graph mode: item,band (default: 'item')}
-#'  \item{ignoreUnsupportedBrowser}{ignore unsupported browser detection at own risk (default: FALSE)}
-#'  \item{rowHeight}{height of a row in pixel (default: 18)}
-#'  \item{rowPadding}{padding between two rows in pixel  (default: 2)}
-#'  \item{groupHeight}{height of an aggregated group in pixel (default: 40)}
-#'  \item{groupPadding}{padding between two groups in pixel (default: 5)}
-#' }
-#'
-#' @return html taggle widget
+#' @return taggle html widget
 #'
 #' @examples
 #' \dontrun{
-#' taggle(mtcars)
 #' taggle(iris)
 #' }
 #'
@@ -334,14 +289,21 @@ lineupRanking <- function(columns = c("_*", "*"),
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a lineup
-#' @param env The environment in which to evaluate \code{expr}.
-#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
-#'   is useful if you want to save an expression in a variable.
+#' @rdname lineup-shiny
+#' @return An output or render function that enables the use of the widget within Shiny applications.
+#' @examples # !formatR
+#' library(shiny)
+#' app <- shinyApp(
+#'   ui = fluidPage(lineupOutput("lineup")),
+#'   server = function(input, output) {
+#'     lineup <- lineupBuilder(iris) |> buildLineUp()
+#'     output$lineup <- renderLineup(lineup)
+#'   }
+#' )
 #'
-#' @name lineup-shiny#'
-#' @importFrom htmlwidgets shinyWidgetOutput
-#'
+#' \donttest{
+#' if (interactive()) app
+#' }
 #' @export
 lineupOutput <- function(outputId,
                          width = "100%",
@@ -351,11 +313,11 @@ lineupOutput <- function(outputId,
 
 #' Shiny render bindings for lineup
 #'
-#' @rdname lineup-shiny
 #' @param expr An expression that generates a taggle
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
+#' @rdname lineup-shiny
 #' @export
 renderLineup <- function(expr,
                          env = parent.frame(),
@@ -371,18 +333,22 @@ renderLineup <- function(expr,
 #' Output and render functions for using taggle within Shiny
 #' applications and interactive Rmd documents.
 #'
-#' @param outputId output variable to read from
-#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
-#'   \code{'800px'}, \code{'auto'}) or a number, which will be coerced to a
-#'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a taggle
-#' @param env The environment in which to evaluate \code{expr}.
-#' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
-#'   is useful if you want to save an expression in a variable.
+#' @inheritParams lineupOutput
+#' @rdname taggle-shiny
+#' @return An output or render function that enables the use of the widget within Shiny applications.
+#' @examples # !formatR
+#' library(shiny)
+#' app <- shinyApp(
+#'   ui = fluidPage(taggleOutput("taggle")),
+#'   server = function(input, output) {
+#'     taggle <- lineupBuilder(iris) |> buildTaggle()
+#'     output$taggle <- renderTaggle(taggle)
+#'   }
+#' )
 #'
-#' @name taggle-shiny
-#' @importFrom htmlwidgets shinyWidgetOutput
-#'
+#' \donttest{
+#' if (interactive()) app
+#' }
 #' @export
 taggleOutput <- function(outputId,
                          width = "100%",
@@ -392,8 +358,9 @@ taggleOutput <- function(outputId,
 
 #' Shiny render bindings for taggle
 #'
-#' @importFrom htmlwidgets shinyRenderWidget
+#' @inheritParams renderLineup
 #' @rdname taggle-shiny
+#'
 #' @export
 renderTaggle <- function(expr,
                          env = parent.frame(),

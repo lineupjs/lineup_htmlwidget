@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
       - uses: r-lib/actions/setup-r@v1
         with:
-          r-version: 3.6
+          r-version: 4.2
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Cache R packages
         uses: actions/cache@v2
@@ -44,10 +44,6 @@ jobs:
         run: styler::style_dir(filetype=c('R', 'Rmd'), dry="fail")
 
       - name: Build Package
-        env:
-          GITHUB_PAT: ''
-          GITHUB_TOKEN: ''
-          CI: ''
         shell: Rscript {0}
         run: |
           devtools::document()
@@ -62,9 +58,6 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-          GITHUB_PAT: ''
-          GITHUB_TOKEN: ''
-          CI: ''
         shell: Rscript {0}
         run: devtools::check(args = c("--no-manual", "--as-cran"), error_on = "error", check_dir = "check")
 

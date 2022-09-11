@@ -4,9 +4,9 @@ Title: 'HTMLWidget' Wrapper of 'LineUp' for Visual Analysis of Multi-Attribute R
 Description: 'LineUp' is an interactive technique designed to create, visualize and explore rankings of items based on a set of heterogeneous attributes.
   This is a 'htmlwidget' wrapper around the JavaScript library 'LineUp.js'.
   It is designed to be used in 'R Shiny' apps and 'R Markddown' files.
-  Due to an outdated 'webkit' version of 'RStudio' it won't work in the intergrated viewer.
-Version: 4.3.0
-Date: 2021-08-30
+  Due to an outdated 'webkit' version of 'RStudio' it won't work in the integrated viewer.
+Version: 4.6.0
+Date: 2022-08-10
 Authors@R: person("Samuel", "Gratzl", email = "sam@sgratzl.com", role = c("aut", "cre"))
 Maintainer: Samuel Gratzl <sam@sgratzl.com>
 URL: https://github.com/lineupjs/lineup_htmlwidget/
@@ -24,8 +24,8 @@ Suggests:
   testthat,
   lintr,
   remotes,
-  styler
-LazyData: true
+  styler,
+  shiny
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
 Language: en-US

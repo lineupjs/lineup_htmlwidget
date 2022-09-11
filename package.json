@@ -1,6 +1,6 @@
 {
   "name": "lineup_htmlwidget",
-  "version": "4.2.0",
+  "version": "4.6.0",
   "description": "LineUp.js as HTMLWidget",
   "bugs": {
     "url": "https://github.com/lineupjs/lineup_htmlwidget/issues"
@@ -14,7 +14,7 @@
     "lineupjs": "4.6.2"
   },
   "scripts": {
-    "postinstall": "shx mkdir -p inst/htmlwidgets/dist && shx cp -r \"node_modules/lineupjs/build/LineUp*\" \"node_modules/lineupjs/build/*.eot\" \"node_modules/lineupjs/build/*.svg\" \"node_modules/lineupjs/build/*.ttf\"  \"node_modules/lineupjs/build/*.woff\" inst/htmlwidgets/dist"
+    "postinstall": "shx rm -f inst/htmlwidgets/dist/* && shx mkdir -p inst/htmlwidgets/dist && shx cp -r \"node_modules/lineupjs/build/LineUp*\" \"node_modules/lineupjs/build/*.eot\" \"node_modules/lineupjs/build/*.svg\" \"node_modules/lineupjs/build/*.ttf\"  \"node_modules/lineupjs/build/*.woff\" inst/htmlwidgets/dist && shx rm inst/htmlwidgets/dist/*.map"
   },
   "devDependencies": {
     "shx": "^0.3.4"
